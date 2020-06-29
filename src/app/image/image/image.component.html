@@ -1,0 +1,29 @@
+<div class="image">
+	<form>
+		<div class="row">
+			<div class="column">
+				<div class="item">
+					<label>Title</label>
+					<input type="text" name="name" [(ngModel)]="item.title">
+				</div>
+				<div class="item">
+					<label>Description</label>
+					<input type="text" name="name" [(ngModel)]="item.title">
+				</div>
+				<div class="item">
+					<label>Talent</label>
+					<combo-box [items]="talents" [config]="comboBoxConfig"></combo-box>
+				</div>
+			</div>
+			<div class="column">
+				<div class="item">
+					<input type="file" name="file" (change)="onFileChange($event)">
+					<image-cropper [imageChangedEvent]="originalImage" format="png" (imageCropped)="onImageCropped($event)"></image-cropper>
+				</div>
+			</div>
+		</div>
+		<div class="row footer">
+			<button type="button" class="green" (click)="onSaveClick()">Save</button>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,8 @@
+<div class="combo-box">
+	<input type="text" [(ngModel)]="inputText" (focus)="showList()" (blur)="hideList()">
+	<div class="list" [hidden]="listHidden">
+		<ul>
+			<li *ngFor="let item of items" (click)="selectItem(item)">{{item.title}}</li>
+		</ul>
+	</div>
+</div>

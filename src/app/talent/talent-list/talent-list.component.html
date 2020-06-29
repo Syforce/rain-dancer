@@ -1,0 +1,16 @@
+<div class="talent-list">
+	<h3 (click)="navigateToNew()">New</h3>
+	<div class="table">
+		<div class="row" *ngFor="let item of list">
+			<div class="cell">
+				<span (click)="navigateToTalent(item._id)">{{item.title}}</span>
+			</div>
+			<div class="cell">
+				<span>{{item.createdAt}}</span>
+			</div>
+			<div class="cell">
+				<span>{{item.updatedAt}}</span>
+			</div>
+		</div>
+	</div>
+</div>

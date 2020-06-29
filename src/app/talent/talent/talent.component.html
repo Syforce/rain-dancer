@@ -1,0 +1,77 @@
+<div class="talent">
+	<form>
+		<div class="row">
+			<div class="item">
+				<label>Name</label>
+				<input type="text" name="name" [(ngModel)]="item.title">
+			</div>
+			<div class="item">
+				<label>Twitter</label>
+				<input type="text" name="twitter" [(ngModel)]="item.twitter">
+			</div>
+		</div>
+		<div class="row">
+			<div class="item">
+				<label>Instagram</label>
+				<input type="text" name="instagram" [(ngModel)]="item.instagram">
+			</div>
+			<div class="item">
+				<label>Facebook</label>
+				<input type="text" name="facebook" [(ngModel)]="item.facebook">
+			</div>
+		</div>
+		<div class="row">
+			<div class="item">
+				<label>Linkedin</label>
+				<input type="text" name="linkedin" [(ngModel)]="item.linkedin">
+			</div>
+			<div class="item">
+				<label>Website link</label>
+				<input type="text" name="website" [(ngModel)]="item.website">
+			</div>
+		</div>
+		<div class="row">
+			<div class="item">
+				<label>Listing Photo</label>
+				<input type="file" name="file" (change)="onFileChange($event)">
+				<img src="{{originalImage}}">
+				<!-- <image-cropper [imageChangedEvent]="originalImage" format="png" (imageCropped)="onImageCropped($event)"></image-cropper> -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="item">
+				<label>About</label>
+				<textarea name="about" [(ngModel)]="item.about"></textarea>
+			</div>
+		</div>
+		<div class="media" *ngIf="medias.length">
+			<div class="table">
+				<div class="row">
+					<div class="cell">
+						<span>Title</span>
+					</div>
+					<div class="cell">
+						<span>Published</span>
+					</div>
+					<div class="cell">
+						<span>Type</span>
+					</div>
+				</div>
+				<div class="row" *ngFor="let media of medias">
+					<div class="cell">
+						<span>{{media.title}}</span>
+					</div>
+					<div class="cell">
+						<input type="checkbox" name="published" [(ngModel)]="media.published" [ngModelOptions]="{standalone: true}">
+					</div>
+					<div class="cell">
+						<span>{{media.__t}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row footer">
+			<button type="button" class="green" (click)="onSaveClick()">Save</button>
+		</div>
+	</form>
+</div>

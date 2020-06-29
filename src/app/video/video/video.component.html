@@ -1,0 +1,31 @@
+<div class="video">
+	<form>
+		<div class="row">
+			<div class="column">
+				<div class="item">
+					<label>Title</label>
+					<input type="text" name="name" [(ngModel)]="item.title">
+				</div>
+				<div class="item">
+					<label>Talent</label>
+					<combo-box [items]="talents" [config]="comboBoxConfig"></combo-box>
+				</div>
+			</div>
+			<div class="column">
+				<div class="item">
+					<label>Video</label>
+					<input *ngIf="!item.path" type="file" name="file" (change)="onVideoFileChange($event)">
+					<video *ngIf="item.path" [src]="item.path" controls></video>
+				</div>
+				<div class="item">
+					<label>Thumbnail</label>
+					<input type="file" name="file" (change)="onImageFileChange($event)">
+					<thumbnail-list></thumbnail-list>
+				</div>
+			</div>
+		</div>
+		<div class="row footer">
+			<button type="button" class="green" (click)="onSaveClick()">Save</button>
+		</div>
+	</form>
+</div>
