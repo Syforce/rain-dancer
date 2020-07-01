@@ -27,4 +27,10 @@ export abstract class AbstractListComponent<T> implements OnInit {
 			relativeTo: this.activatedRoute
 		});
 	}
+
+	public getSortedData(sortBy: string, sortOrder: number) {
+		this.abstractService.getSorted(sortBy, sortOrder).subscribe((list: Array<T>) => {
+			this.list = list;
+		});
+	}
 }

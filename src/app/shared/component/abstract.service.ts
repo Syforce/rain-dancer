@@ -4,6 +4,7 @@ import { HttpService } from '@shared/service/http.service';
 
 import { AbstractModel } from '@shared/component/abstract.model';
 import { FormFile } from '@shared/service/model/form-file.model';
+import { SortOptions } from '@shared/service/model/sort-options.model';
 
 export abstract class AbstractService<T extends AbstractModel> {
 	protected httpService: HttpService;
@@ -40,5 +41,14 @@ export abstract class AbstractService<T extends AbstractModel> {
 
 	public update(item: T): Observable<T> {
 		return this.httpService.put(`/${this.baseUrl}/${item._id}`, item);
+	}
+
+	public getSorted(sortBy: string, sortOrder: number): Observable<Array<T>> {
+		const sortOptions: SortOptions = {
+			sortBy: sortBy,
+			sortOrder: sortOrder
+		} 
+
+		return this.httpService.post(`/${this.baseUrl}s`, sortOptions);
 	}
 }
