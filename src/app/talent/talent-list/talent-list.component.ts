@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { TalentService } from '@talent/talent.service';
 import { AbstractListComponent } from '@shared/component/abstract-list.component';
 
 import { Talent } from '@shared/model/talent.model';
+import { SortOptions } from '@shared/service/model/sort-options.model';
 
 @Component({
 	selector: 'talent-list',
@@ -12,8 +13,8 @@ import { Talent } from '@shared/model/talent.model';
 	styleUrls: ['./talent-list.component.scss']
 })
 export class TalentListComponent extends AbstractListComponent<Talent> {
-	private sortBy: string = 'title';
-	private sortOrder: number = 1;
+	private _sortBy: string = 'title';
+	private _sortOrder: number = 1;
 
 	constructor(service: TalentService, activatedRoute: ActivatedRoute, router: Router) {
 		super(service, activatedRoute, router);
@@ -25,14 +26,24 @@ export class TalentListComponent extends AbstractListComponent<Talent> {
 		});
 	}
 
-	public onSortClick(event: any) {
-		if (event.target.id === this.sortBy) {
-			this.sortOrder *= -1;
-		} else {
-			this.sortBy = event.target.id;
-			this.sortOrder = 1;
-		}
+	public setItemsPerPage(itemsPerPage: number) {
+		this.itemsPerPage = itemsPerPage;
 
-		this.getSortedData(this.sortBy, this.sortOrder);
+		this.getPaginated(this.skip, this.itemsPerPage, this._sortBy, this._sortOrder);
 	}
+
+	public setCurrentPage(currentPage: number) {
+		this.currentPage = currentPage;
+		this.skip = this.itemsPerPage * (currentPage - 1);
+		
+		this.getPaginated(this.skip, this.itemsPerPage, this._sortBy, this._sortOrder);
+	}
+
+	public setSortOptions(sortOptions: SortOptions) {
+		this._sortBy = sortOptions.sortBy;
+		this._sortOrder = sortOptions.sortOrder;
+
+		this.getPaginated(this.skip, this.itemsPerPage, this._sortBy, this._sortOrder);
+	}
+
 }

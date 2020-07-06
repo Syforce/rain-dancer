@@ -5,6 +5,7 @@ import { HttpService } from '@shared/service/http.service';
 import { AbstractModel } from '@shared/component/abstract.model';
 import { FormFile } from '@shared/service/model/form-file.model';
 import { SortOptions } from '@shared/service/model/sort-options.model';
+import { HttpParams } from '@angular/common/http';
 
 export abstract class AbstractService<T extends AbstractModel> {
 	protected httpService: HttpService;
@@ -43,12 +44,13 @@ export abstract class AbstractService<T extends AbstractModel> {
 		return this.httpService.put(`/${this.baseUrl}/${item._id}`, item);
 	}
 
-	public getSorted(sortBy: string, sortOrder: number): Observable<Array<T>> {
-		const sortOptions: SortOptions = {
-			sortBy: sortBy,
-			sortOrder: sortOrder
-		} 
+	public getPaginated(skip: number, limit: number, sortBy: string, sortOrder: number): Observable<Array<T>> {
+		const params = new HttpParams()
+			.set('skip', skip.toString())
+			.set('limit', limit.toString())
+			.set('sortBy', sortBy)
+			.set('sortOrder', sortOrder.toString());
 
-		return this.httpService.post(`/${this.baseUrl}s`, sortOptions);
+		return this.httpService.get(`/${this.baseUrl}s`, params);
 	}
 }

@@ -1,30 +1,6 @@
 <div class="talent-list">
 	<h3 (click)="navigateToNew()">New</h3>
-	<select>
-		<option *ngFor="let item of list; let i = index" value={{i+1}}>{{i+1}}</option>
-	</select>
-	<div class="table">
-		<div class="row">
-			<div class="cell">
-				<span id="title" (click)="onSortClick($event)">Name</span>
-			</div>
-			<div class="cell">
-				<span id="createdAt" (click)="onSortClick($event)">Created</span>
-			</div>
-			<div class="cell">
-				<span id="updatedAt" (click)="onSortClick($event)">Updated</span>
-			</div>
-		</div>
-		<div class="row" *ngFor="let item of list">
-			<div class="cell">
-				<span (click)="navigateToTalent(item._id)">{{item.title}}</span>
-			</div>
-			<div class="cell">
-				<span>{{item.createdAt}}</span>
-			</div>
-			<div class="cell">
-				<span>{{item.updatedAt}}</span>
-			</div>
-		</div>
-	</div>
+	<table-header (valueChange)='setItemsPerPage($event)'></table-header>
+	<table [listOfItems]='list' (sortOptions)='setSortOptions($event)' (navigateToNew)='navigateToNew()'></table>
+	<table-footer *ngIf="nrOfItems" [itemsPerPage]="itemsPerPage" [nrOfItems]="nrOfItems" (page)='setCurrentPage($event)'></table-footer>
 </div>

@@ -25,6 +25,10 @@ import { VideoComponent } from '@video/video/video.component';
 import { VideoService } from '@video/video.service';
 import { ThumbnailListComponent } from '@video/thumbnail-list/thumbnail-list.component';
 
+import { TableComponent } from '@shared/table/table.component';
+import { TableHeaderComponent } from '@shared/table-header/table-header.component';
+import { TableFooterComponent } from '@shared/table-footer/table-footer.component';
+
 import { MediaService } from '@media/media.service';
 
 import { NavigationMenuComponent } from '@shared/navigation-menu/navigation-menu.component';
@@ -53,7 +57,11 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 		VideoDashboardComponent,
 		VideoListComponent,
 		VideoComponent,
-		ThumbnailListComponent
+		ThumbnailListComponent,
+
+		TableComponent,
+		TableHeaderComponent,
+		TableFooterComponent
 	],
 	imports: [
 		BrowserModule,

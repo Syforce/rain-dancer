@@ -1,0 +1,24 @@
+<div class="table">
+    <div class="row">
+        <div class="cell">
+            <span id="title" (click)="onSortClick($event)">Name</span>
+        </div>
+        <div class="cell">
+            <span id="createdAt" (click)="onSortClick($event)">Created</span>
+        </div>
+        <div class="cell">
+            <span id="updatedAt" (click)="onSortClick($event)">Updated</span>
+        </div>
+    </div>
+    <div class="row" *ngFor="let item of listOfItems">
+        <div class="cell">
+            <span (click)='onNavigateClick()'>{{item.title}}</span>
+        </div>
+        <div class="cell">
+            <span>{{item.createdAt}}</span>
+        </div>
+        <div class="cell">
+            <span>{{item.updatedAt}}</span>
+        </div>
+    </div>
+</div>
