@@ -31,10 +31,10 @@ export class TableFooterComponent implements OnInit {
 		else {
 			const res: number = this.nrOfItems / this._itemsPerPage;
 			if (res > parseInt(res.toString())) {
-				this.nrOfPages = res + 1;
+				this.nrOfPages = parseInt((res + 1).toString());
 			}
 			else {
-				this.nrOfPages = res;
+				this.nrOfPages = parseInt((res).toString());
 			}
 		}
 	}
