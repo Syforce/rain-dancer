@@ -6,9 +6,9 @@ import { Component, Input, OnInit, Output, EventEmitter, OnChanges } from '@angu
 	styleUrls: ['./table-footer.component.scss']
 })
 export class TableFooterComponent implements OnInit {
-	private _nrOfPages: number;
 	private _currentPage: number = 1;
-	private _itemsPerPage: number = 10;
+	private _itemsPerPage: number;
+	public nrOfPages: number;
 
 	@Input() set itemsPerPage(value) {
 		this._itemsPerPage = value;
@@ -26,15 +26,15 @@ export class TableFooterComponent implements OnInit {
 		this._itemsPerPage = Number(this._itemsPerPage);
 
 		if (this.nrOfItems <= this._itemsPerPage) {
-			this._nrOfPages = 1;
+			this.nrOfPages = 1;
 		}
 		else {
 			const res: number = this.nrOfItems / this._itemsPerPage;
 			if (res > parseInt(res.toString())) {
-				this._nrOfPages = parseInt((res + 1).toString());
+				this.nrOfPages = res + 1;
 			}
 			else {
-				this._nrOfPages = parseInt((res).toString());
+				this.nrOfPages = res;
 			}
 		}
 	}
@@ -61,6 +61,6 @@ export class TableFooterComponent implements OnInit {
 	}
 
 	get last() {
-		return this._nrOfPages;
+		return this.nrOfPages;
 	}
 }
