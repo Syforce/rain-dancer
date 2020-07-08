@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
 	selector: 'table-footer',
@@ -6,42 +6,29 @@ import { Component, Input, OnInit, Output, EventEmitter, OnChanges } from '@angu
 	styleUrls: ['./table-footer.component.scss']
 })
 export class TableFooterComponent implements OnInit {
-	private _currentPage: number = 1;
+	private currentPage: number = 1;
 	private _itemsPerPage: number;
 	public nrOfPages: number;
 
-	@Input() set itemsPerPage(value) {
+	@Input() set itemsPerPage(value: number) {
 		this._itemsPerPage = value;
+		this.currentPage = 1;
 		this.getNumberOfPages();
 	}
 	@Input() nrOfItems: number;
-	@Output() page = new EventEmitter();
+	@Output() onPageChange = new EventEmitter();
 
 	ngOnInit() {
 		this.getNumberOfPages();
 	}
 
 	private getNumberOfPages() {
-		this.nrOfItems = Number(this.nrOfItems);
-		this._itemsPerPage = Number(this._itemsPerPage);
-
-		if (this.nrOfItems <= this._itemsPerPage) {
-			this.nrOfPages = 1;
-		}
-		else {
-			const res: number = this.nrOfItems / this._itemsPerPage;
-			if (res > parseInt(res.toString())) {
-				this.nrOfPages = parseInt((res + 1).toString());
-			}
-			else {
-				this.nrOfPages = parseInt((res).toString());
-			}
-		}
+		this.nrOfPages = Math.ceil(this.nrOfItems / this._itemsPerPage);
 	}
 
 	public jumpTo(page: number) {
-		this._currentPage = page;
-		this.page.emit(this._currentPage);
+		this.currentPage = page;
+		this.onPageChange.emit(this.currentPage);
 	}
 
 	get first() {
@@ -49,15 +36,15 @@ export class TableFooterComponent implements OnInit {
 	}
 
 	get prev() {
-		return this._currentPage - 1;
+		return this.currentPage - 1;
 	}
 
 	get current() {
-		return this._currentPage;
+		return this.currentPage;
 	}
 
 	get next() {
-		return this._currentPage + 1;
+		return this.currentPage + 1;
 	}
 
 	get last() {

@@ -6,15 +6,15 @@ import { Component, Output, EventEmitter, OnInit } from "@angular/core";
   styleUrls: ["./table-header.component.scss"],
 })
 export class TableHeaderComponent implements OnInit{
-  @Output() valueChange = new EventEmitter();
+  @Output() onValueChange = new EventEmitter();
 
-  public itemsPerPage: string = "10";
+  public itemsPerPage: number = 10;
 
   ngOnInit() {
-    this.valueChange.emit(Number(this.itemsPerPage));
+    this.onValueChange.emit(this.itemsPerPage);
   }
 
   public onChange(): void {
-    this.valueChange.emit(Number(this.itemsPerPage));
+    this.onValueChange.emit(this.itemsPerPage);
   }
 }

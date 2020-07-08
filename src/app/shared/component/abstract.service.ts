@@ -44,12 +44,15 @@ export abstract class AbstractService<T extends AbstractModel> {
 		return this.httpService.put(`/${this.baseUrl}/${item._id}`, item);
 	}
 
-	public getPaginated(skip: number, limit: number, sortBy: string, sortOrder: number): Observable<Array<T>> {
-		const params = new HttpParams()
-			.set('skip', skip.toString())
-			.set('limit', limit.toString())
-			.set('sortBy', sortBy)
-			.set('sortOrder', sortOrder.toString());
+	public getPaginated(currentPage: number, itemsPerPage: number, sortBy?: string, sortOrder?: number): Observable<Array<T>> {
+		let params = new HttpParams()
+			.set('currentPage', currentPage.toString())
+			.set('itemsPerPage', itemsPerPage.toString());
+
+		if (sortBy && sortOrder) {
+			params = params.set('sortBy', sortBy);
+			params = params.set('sortOrder', sortOrder.toString());
+		}	
 
 		return this.httpService.get(`/${this.baseUrl}s`, params);
 	}

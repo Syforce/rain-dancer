@@ -13,8 +13,8 @@ import { SortOptions } from '@shared/service/model/sort-options.model';
 	styleUrls: ['./talent-list.component.scss']
 })
 export class TalentListComponent extends AbstractListComponent<Talent> {
-	private _sortBy: string = 'title';
-	private _sortOrder: number = 1;
+	private sortBy: string = 'title';
+	private sortOrder: number = 1;
 
 	constructor(service: TalentService, activatedRoute: ActivatedRoute, router: Router) {
 		super(service, activatedRoute, router);
@@ -28,22 +28,22 @@ export class TalentListComponent extends AbstractListComponent<Talent> {
 
 	public setItemsPerPage(itemsPerPage: number) {
 		this.itemsPerPage = itemsPerPage;
+		this.currentPage = 1;
 
-		this.getPaginated(this.skip, this.itemsPerPage, this._sortBy, this._sortOrder);
+		this.getPaginated(this.currentPage, this.itemsPerPage, this.sortBy, this.sortOrder);
 	}
 
 	public setCurrentPage(currentPage: number) {
 		this.currentPage = currentPage;
-		this.skip = this.itemsPerPage * (currentPage - 1);
 		
-		this.getPaginated(this.skip, this.itemsPerPage, this._sortBy, this._sortOrder);
+		this.getPaginated(this.currentPage, this.itemsPerPage, this.sortBy, this.sortOrder);
 	}
 
 	public setSortOptions(sortOptions: SortOptions) {
-		this._sortBy = sortOptions.sortBy;
-		this._sortOrder = sortOptions.sortOrder;
+		this.sortBy = sortOptions.sortBy;
+		this.sortOrder = sortOptions.sortOrder;
 
-		this.getPaginated(this.skip, this.itemsPerPage, this._sortBy, this._sortOrder);
+		this.getPaginated(this.currentPage, this.itemsPerPage, this.sortBy, this.sortOrder);
 	}
 
 }

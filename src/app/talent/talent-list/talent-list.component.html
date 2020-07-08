@@ -1,6 +1,6 @@
 <div class="talent-list">
 	<h3 (click)="navigateToNew()">New</h3>
-	<table-header (valueChange)='setItemsPerPage($event)'></table-header>
-	<table [listOfItems]='list' (sortOptions)='setSortOptions($event)' (navigateToNew)='navigateToNew()'></table>
-	<table-footer *ngIf="nrOfItems" [itemsPerPage]="itemsPerPage" [nrOfItems]="nrOfItems" (page)='setCurrentPage($event)'></table-footer>
+	<table-header (onValueChange)='setItemsPerPage($event)'></table-header>
+	<table [listOfItems]='list' (onSortChange)='setSortOptions($event)' (onNavigate)='navigateToNew()'></table>
+	<table-footer *ngIf="list.length" [itemsPerPage]="itemsPerPage" [nrOfItems]="nrOfItems" (onPageChange)='setCurrentPage($event)'></table-footer>
 </div>

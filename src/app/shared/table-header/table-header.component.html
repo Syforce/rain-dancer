@@ -1,6 +1,6 @@
 <select [(ngModel)]="itemsPerPage" (change)="onChange()">
-    <option value="5">5</option>
-    <option value="10">10</option>
-    <option value="20">20</option>
-    <option value="50">50</option>
+    <option [ngValue]="1">1</option>
+    <option [ngValue]="2">2</option>
+    <option [ngValue]="5">5</option>
+    <option [ngValue]="10">10</option>
 </select>
