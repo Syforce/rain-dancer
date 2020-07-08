@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AbstractService } from '@shared/component/abstract.service';
-import { Subscription } from 'rxjs';
 
 export abstract class AbstractListComponent<T> implements OnInit {
 	private abstractService: AbstractService<T>;
