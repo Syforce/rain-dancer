@@ -30,20 +30,20 @@ export class TalentListComponent extends AbstractListComponent<Talent> {
 		this.itemsPerPage = itemsPerPage;
 		this.currentPage = 1;
 
-		this.getPaginated(this.currentPage, this.itemsPerPage, this.sortBy, this.sortOrder);
+		this.getPaginated(this.sortBy, this.sortOrder);
 	}
 
 	public setCurrentPage(currentPage: number) {
 		this.currentPage = currentPage;
 		
-		this.getPaginated(this.currentPage, this.itemsPerPage, this.sortBy, this.sortOrder);
+		this.getPaginated(this.sortBy, this.sortOrder);
 	}
 
 	public setSortOptions(sortOptions: SortOptions) {
 		this.sortBy = sortOptions.sortBy;
 		this.sortOrder = sortOptions.sortOrder;
 
-		this.getPaginated(this.currentPage, this.itemsPerPage, this.sortBy, this.sortOrder);
+		this.getPaginated(this.sortBy, this.sortOrder);
 	}
 
 }

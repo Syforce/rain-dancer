@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { HttpService } from '@shared/service/http.service';
 
@@ -17,15 +18,15 @@ export abstract class AbstractService<T extends AbstractModel> {
 	}
 
 	public getAll(): Observable<Array<T>> {
-		return this.httpService.get(`/${this.baseUrl}s`);
+		return this.httpService.get(`/${this.baseUrl}s`).pipe(take(1));
 	}
 
 	public getById(id: string): Observable<T> {
-		return this.httpService.get(`/${this.baseUrl}/${id}`);
+		return this.httpService.get(`/${this.baseUrl}/${id}`).pipe(take(1));
 	}
 
 	public create(item: T): Observable<T> {
-		return this.httpService.post(`/${this.baseUrl}`, item);
+		return this.httpService.post(`/${this.baseUrl}`, item).pipe(take(1));
 	}
 
 	public createForm(item: T, files: Array<FormFile>, convert: boolean = false) {
@@ -37,11 +38,11 @@ export abstract class AbstractService<T extends AbstractModel> {
 
 		formData.append('data', JSON.stringify(item));
 
-		return this.httpService.post(`/${this.baseUrl}`, formData, convert);
+		return this.httpService.post(`/${this.baseUrl}`, formData, convert).pipe(take(1));
 	}
 
 	public update(item: T): Observable<T> {
-		return this.httpService.put(`/${this.baseUrl}/${item._id}`, item);
+		return this.httpService.put(`/${this.baseUrl}/${item._id}`, item).pipe(take(1));
 	}
 
 	public getPaginated(currentPage: number, itemsPerPage: number, sortBy?: string, sortOrder?: number): Observable<Array<T>> {
@@ -54,6 +55,6 @@ export abstract class AbstractService<T extends AbstractModel> {
 			params = params.set('sortOrder', sortOrder.toString());
 		}	
 
-		return this.httpService.get(`/${this.baseUrl}s`, params);
+		return this.httpService.get(`/${this.baseUrl}s`, params).pipe(take(1));
 	}
 }

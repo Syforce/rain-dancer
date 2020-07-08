@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AbstractService } from '@shared/component/abstract.service';
+import { Subscription } from 'rxjs';
 
 export abstract class AbstractListComponent<T> implements OnInit {
 	private abstractService: AbstractService<T>;
@@ -32,8 +33,8 @@ export abstract class AbstractListComponent<T> implements OnInit {
 		});
 	}
 
-	public getPaginated(currentPage: number, itemsPerPage: number, sortBy: string, sortOrder: number) {
-		this.abstractService.getPaginated(currentPage, itemsPerPage, sortBy, sortOrder).subscribe((list: Array<T>) => {
+	public getPaginated(sortBy: string, sortOrder: number) {
+		this.abstractService.getPaginated(this.currentPage, this.itemsPerPage, sortBy, sortOrder).subscribe((list: Array<T>) => {
 			this.list = list;
 		});
 	}
