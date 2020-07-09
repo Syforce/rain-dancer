@@ -17,8 +17,8 @@ export class HttpService {
 		this.httpClient = httpClient;
 	}
 
-	public get(url): Observable<any> {
-		return this.httpClient.get(`${BASE_URL}${url}`);
+	public get(url, params?): Observable<any> {
+		return this.httpClient.get(`${BASE_URL}${url}`, {params});
 	}
 
 	public post(url, data, convert: boolean = false): Observable<any> {

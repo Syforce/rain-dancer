@@ -1,0 +1,9 @@
+<div class="table-footer">
+    <div class="options-list">
+        <input (click)="jumpTo(first)" [ngModel]="first" *ngIf="first != current" class="option" readonly>
+        <input (click)="jumpTo(prev)" [ngModel]="prev" *ngIf="prev > 1" class="option" readonly>
+        <input (click)="jumpTo(current)" [ngModel]="current" class="option" readonly>
+        <input (click)="jumpTo(next)" [ngModel]="next" *ngIf="next < nrOfPages" class="option" readonly>
+        <input (click)="jumpTo(last)" [ngModel]="last" *ngIf="last != current" class="option" readonly>
+    </div>
+</div>
