@@ -9,9 +9,11 @@ export abstract class AbstractListComponent<T> implements OnInit {
 	protected router: Router;
 
 	public list: Array<T> = new Array<T>();
-	public itemsPerPage: number; 
+	public itemsPerPage: number = 5; 
 	public currentPage: number = 1;
 	public nrOfItems: number;
+	public sortBy: string = '';
+	public sortOrder: number = 1;
 
 	constructor(abstractService: AbstractService<T>, activatedRoute: ActivatedRoute, router: Router) {
 		this.abstractService = abstractService;
@@ -20,9 +22,9 @@ export abstract class AbstractListComponent<T> implements OnInit {
 	}
 
 	ngOnInit() {
-		this.abstractService.getAll().subscribe((list: Array<T>) => {
-			this.list = list;
-			this.nrOfItems = this.list.length;
+		this.abstractService.getPaginated(this.currentPage, this.itemsPerPage).subscribe((responseData: any) => {
+			this.list = responseData.list;
+			this.nrOfItems = responseData.total;
 		});
 	}
 
@@ -33,8 +35,8 @@ export abstract class AbstractListComponent<T> implements OnInit {
 	}
 
 	public getPaginated(sortBy: string, sortOrder: number) {
-		this.abstractService.getPaginated(this.currentPage, this.itemsPerPage, sortBy, sortOrder).subscribe((list: Array<T>) => {
-			this.list = list;
+		this.abstractService.getPaginated(this.currentPage, this.itemsPerPage, sortBy, sortOrder).subscribe((responseData: any) => {
+			this.list = responseData.list;
 		});
 	}
 }

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { TalentService } from '@talent/talent.service';
@@ -13,8 +13,6 @@ import { SortOptions } from '@shared/service/model/sort-options.model';
 	styleUrls: ['./talent-list.component.scss']
 })
 export class TalentListComponent extends AbstractListComponent<Talent> {
-	private sortBy: string = 'title';
-	private sortOrder: number = 1;
 
 	constructor(service: TalentService, activatedRoute: ActivatedRoute, router: Router) {
 		super(service, activatedRoute, router);
@@ -45,5 +43,4 @@ export class TalentListComponent extends AbstractListComponent<Talent> {
 
 		this.getPaginated(this.sortBy, this.sortOrder);
 	}
-
 }

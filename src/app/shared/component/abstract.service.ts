@@ -5,7 +5,6 @@ import { HttpService } from '@shared/service/http.service';
 
 import { AbstractModel } from '@shared/component/abstract.model';
 import { FormFile } from '@shared/service/model/form-file.model';
-import { SortOptions } from '@shared/service/model/sort-options.model';
 import { HttpParams } from '@angular/common/http';
 
 export abstract class AbstractService<T extends AbstractModel> {
