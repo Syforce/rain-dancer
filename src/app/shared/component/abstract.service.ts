@@ -35,7 +35,8 @@ export abstract class AbstractService<T extends AbstractModel> {
 			formData.append(formFile.key, formFile.file, formFile.file.name);
 		});
 
-		formData.append('data', JSON.stringify(item));
+		Object.keys(item).forEach(key => formData.append(key, item[key]));
+		// formData.append('data', JSON.stringify(item));
 
 		return this.httpService.post(`/${this.baseUrl}`, formData, convert).pipe(take(1));
 	}

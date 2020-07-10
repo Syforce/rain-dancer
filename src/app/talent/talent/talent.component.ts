@@ -50,7 +50,7 @@ export class TalentComponent extends AbstractComponent<Talent> {
 	public save() {
 		const image: FormFile = {
 			file: this.file,
-			key: 'listingImage'
+			key: 'storeImage'
 		};
 
 		this.service.createForm(this.item, [image]).subscribe((data) => {
