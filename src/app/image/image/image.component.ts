@@ -18,7 +18,7 @@ import { ComboBoxConfig } from '@shared/framework/combo-box/combo-box.config';
 })
 export class ImageComponent extends AbstractComponent<Image> {
 	private talentService: TalentService;
-	private file;
+	private file: File;
 
 	public originalImage: any = '';
 	public croppedImage: any = '';
@@ -49,16 +49,19 @@ export class ImageComponent extends AbstractComponent<Image> {
 	}
 
 	public onImageCropped(event) {
-		console.log(event);
 		this.croppedImage = event.base64;
 	}
 
 	public save() {
-		fetch(this.croppedImage).then(result => result.blob()).then((blob) => {
+		fetch(this.croppedImage)
+		.then(result => result.blob())
+		.then((blob) => {
 			const file: File = new File([blob], 'thumbnail', {
-				type: 'image/png'
+				type: 'image/jpeg'
 			});
 
+			console.log(file);
+			console.log(this.file);
 			const image: FormFile = {
 				file: this.file,
 				key: 'originalImage'
@@ -69,7 +72,9 @@ export class ImageComponent extends AbstractComponent<Image> {
 				key: 'thumbnailImage'
 			};
 
-			this.service.createForm(this.item, [image, thumbnail]).subscribe((data) => {
+			console.log(image);
+			console.log(thumbnail);
+			this.service.createForm(this.item, [thumbnail]).subscribe((data) => {
 				console.log(data);
 			});
 		});
