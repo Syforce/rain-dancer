@@ -60,8 +60,6 @@ export class ImageComponent extends AbstractComponent<Image> {
 				type: 'image/jpeg'
 			});
 
-			console.log(file);
-			console.log(this.file);
 			const image: FormFile = {
 				file: this.file,
 				key: 'originalImage'
@@ -74,7 +72,7 @@ export class ImageComponent extends AbstractComponent<Image> {
 
 			console.log(image);
 			console.log(thumbnail);
-			this.service.createForm(this.item, [thumbnail]).subscribe((data) => {
+			this.service.createForm(this.item, [image, thumbnail]).subscribe((data) => {
 				console.log(data);
 			});
 		});
