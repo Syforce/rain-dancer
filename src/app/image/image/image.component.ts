@@ -70,8 +70,6 @@ export class ImageComponent extends AbstractComponent<Image> {
 				key: 'thumbnailImage'
 			};
 
-			console.log(image);
-			console.log(thumbnail);
 			this.service.createForm(this.item, [image, thumbnail]).subscribe((data) => {
 				console.log(data);
 			});
