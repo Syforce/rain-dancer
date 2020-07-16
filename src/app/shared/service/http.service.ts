@@ -23,7 +23,7 @@ export class HttpService {
 
 	public post(url, data, convert: boolean = false): Observable<any> {
 		const domain: string = convert ? CONVERT_URL : BASE_URL;
-		
+
 		return this.httpClient.post(`${domain}${url}`, data);
 	}
 
