@@ -20,6 +20,7 @@ export class TableComponent implements OnInit {
 	public previewImage;
 	
 	ngOnInit() {
+		// TO DO: CHANGE THIS
 		const item: any = this.listOfItems[0];
 		if (item.__t) {
 			this.dataType = item.__t;
