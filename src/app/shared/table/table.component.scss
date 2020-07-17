@@ -1,3 +1,20 @@
 :host {
     width: 100%;
+
+    .table {
+
+        .row {
+
+            .cell {
+                position: relative;
+
+                img {
+                    max-height: 200px;
+                    position: absolute;
+                    bottom: 10px;
+                    left: 60px;
+                }
+            }
+        }
+    }
 }

@@ -12,17 +12,10 @@ import { Image } from '@shared/model/image.model';
 	styleUrls: ['./image-list.component.scss']
 })
 export class ImageListComponent extends AbstractListComponent<Image> {
-	public previewImage;
-
 	constructor(service: ImageService, activatedRoute: ActivatedRoute, router: Router) {
 		super(service, activatedRoute, router);
 	}
-
-	public showPreviewImage(image: Image) {
-		this.previewImage = image;
-		console.log(image);
-	}
-
+	
 	public navigateToNew() {
 		this.router.navigate(['new'], {
 			relativeTo: this.activatedRoute

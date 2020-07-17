@@ -23,24 +23,4 @@ export class TalentListComponent extends AbstractListComponent<Talent> {
 			relativeTo: this.activatedRoute
 		});
 	}
-
-	public setItemsPerPage(itemsPerPage: number) {
-		this.itemsPerPage = itemsPerPage;
-		this.currentPage = 1;
-
-		this.getPaginated(this.sortBy, this.sortOrder);
-	}
-
-	public setCurrentPage(currentPage: number) {
-		this.currentPage = currentPage;
-		
-		this.getPaginated(this.sortBy, this.sortOrder);
-	}
-
-	public setSortOptions(sortOptions: SortOptions) {
-		this.sortBy = sortOptions.sortBy;
-		this.sortOrder = sortOptions.sortOrder;
-
-		this.getPaginated(this.sortBy, this.sortOrder);
-	}
 }
