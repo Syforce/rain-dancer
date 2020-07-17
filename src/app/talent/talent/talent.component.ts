@@ -41,14 +41,14 @@ export class TalentComponent extends AbstractComponent<Talent> {
 		}
 	}
 
-	public onFileChange(event) {
-		if (event.target.name === 'listingImage') {
-			this.listingImage = event;
-			this.listingFile = event.target.files[0];
-		} else {
-			this.profileImage = event;
-			this.profileFile = event.target.files[0];
-		}
+	public onListingChange(event) {
+		this.listingImage = event;
+		this.listingFile = event.target.files[0];
+	}
+
+	public onProfileChange(event) {
+		this.profileImage = event;
+		this.profileFile = event.target.files[0];
 	}
 
 	public onListingCropped(event) {
@@ -59,53 +59,48 @@ export class TalentComponent extends AbstractComponent<Talent> {
 		this.profileCroppedImage = event.base64;
 	}
 
-	public save() {
-		fetch(this.profileCroppedImage)
-		.then(result => result.blob())
+	private getImageFile(image, name) {
+		return fetch(image)
+		.then(blob => blob.blob())
 		.then((blob) => {
-			const file: File = new File([blob], 'profileCropped', {
+			
+			return new File([blob], name, {
 				type: 'image/jpeg'
 			});
+		});
+	}
 
+	public save() {
+		const profilePromise = this.getImageFile(this.profileCroppedImage, 'profileCropped');
+		const listingPromise = this.getImageFile(this.listingCroppedImage, 'listingCropped');
+
+		Promise.all([profilePromise, listingPromise]).then((values) => {
+			console.log(values)
 			const profile: FormFile = {
 				file: this.profileFile,
 				key: 'profileImage'
 			};
 
 			const profileCropped: FormFile = {
-				file: file,
+				file: values[0],
 				key: 'profileCroppedImage'
 			};
 
-			console.log(profile);
-			console.log(profileCropped);
+			const listing: FormFile = {
+				file: this.listingFile,
+				key: 'listingImage'
+			};
 
-			fetch(this.listingCroppedImage)
-			.then(result => result.blob())
-			.then((blob) => {
-				const file: File = new File([blob], 'listingCropped', {
-					type: 'image/jpeg'
-				});
-	
-				const listing: FormFile = {
-					file: this.listingFile,
-					key: 'listingImage'
-				};
-	
-				const listingCropped: FormFile = {
-					file: file,
-					key: 'listingCroppedImage'
-				};
+			const listingCropped: FormFile = {
+				file: values[1],
+				key: 'listingCroppedImage'
+			};
 
-				console.log(listing);
-				console.log(listingCropped);
-	
-				this.service.createForm(this.item, [profile, profileCropped, listing, listingCropped]).subscribe((data) => {
-					console.log(data);
-				});
+			this.service.createForm(this.item, [profile, profileCropped, listing, listingCropped]).subscribe((data) => {
+				console.log(data);
 			});
-		});
-		
+			
+		});	
 	}
 
 	public update() {
