@@ -1,16 +1,23 @@
 <div class="table">
     <div class="row">
+        <div *ngIf="dataType === 'Image'" class="cell">
+            <span id="title" (click)="onSortClick($event)">Preview</span>
+        </div>
         <div class="cell">
             <span id="title" (click)="onSortClick($event)">Name</span>
         </div>
         <div class="cell">
-            <span id="createdAt" (click)="onSortClick($event)">Created</span>
+            <span id="createdAt" (click)="onSortClick($event)">Created At</span>
         </div>
         <div class="cell">
-            <span id="updatedAt" (click)="onSortClick($event)">Updated</span>
+            <span id="updatedAt" (click)="onSortClick($event)">Updated At</span>
         </div>
     </div>
     <div class="row" *ngFor="let item of listOfItems">
+        <div class="cell">
+            <span (click)="showPreviewImage(item)">[IMG]</span>
+            <img *ngIf="previewImage && previewImage._id === item._id" src="{{previewImage.thumbnail}}">
+        </div>
         <div class="cell">
             <span (click)='onNavigateClick()'>{{item.title}}</span>
         </div>
