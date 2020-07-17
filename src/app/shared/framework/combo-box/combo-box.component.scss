@@ -12,6 +12,8 @@
 		background: #fff;
 		border: 1px solid #000;
 		// box-sizing: border-box;
+		overflow-y: auto;
+		overflow-x: hidden;
 
 		ul {
 			li {
