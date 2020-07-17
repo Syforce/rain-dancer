@@ -33,9 +33,15 @@
 		<div class="row">
 			<div class="item">
 				<label>Listing Photo</label>
-				<input type="file" name="file" (change)="onFileChange($event)">
-				<img src="{{originalImage}}">
-				<!-- <image-cropper [imageChangedEvent]="originalImage" format="png" (imageCropped)="onImageCropped($event)"></image-cropper> -->
+				<input type="file" name="listingImage" (change)="onListingChange($event)">
+				<image-cropper [imageChangedEvent]="listingImage" format="jpeg" (imageCropped)="onListingCropped($event)"></image-cropper>
+			</div>
+		</div>
+		<div class="row">
+			<div class="item">
+				<label>Profile Photo</label>
+				<input type="file" name="profileImage" (change)="onProfileChange($event)">
+				<image-cropper [imageChangedEvent]="profileImage" format="jpeg" (imageCropped)="onProfileCropped($event)"></image-cropper>
 			</div>
 		</div>
 		<div class="row">
