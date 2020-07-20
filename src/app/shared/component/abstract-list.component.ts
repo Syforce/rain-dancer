@@ -39,16 +39,16 @@ export abstract class AbstractListComponent<T> implements OnInit {
 		this.abstractService.getPaginated(this.currentPage, this.itemsPerPage, sortBy, sortOrder).subscribe((responseData: any) => {
 			this.list = responseData.list;
 		});
-    }
+	}
 
-    public setItemsPerPage(itemsPerPage: number) {
+	public setItemsPerPage(itemsPerPage: number) {
 		this.itemsPerPage = itemsPerPage;
 		this.currentPage = 1;
 
 		this.getPaginated(this.sortBy, this.sortOrder);
 	}
-    
-    public setCurrentPage(currentPage: number) {
+	
+	public setCurrentPage(currentPage: number) {
 		this.currentPage = currentPage;
 		
 		this.getPaginated(this.sortBy, this.sortOrder);

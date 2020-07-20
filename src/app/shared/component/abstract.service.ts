@@ -10,10 +10,12 @@ import { HttpParams } from '@angular/common/http';
 export abstract class AbstractService<T extends AbstractModel> {
 	protected httpService: HttpService;
 	protected baseUrl: string;
+	protected convert: boolean;
 
-	constructor(httpService: HttpService, baseUrl: string) {
+	constructor(httpService: HttpService, baseUrl: string, convert: boolean = false) {
 		this.httpService = httpService;
 		this.baseUrl = baseUrl;
+		this.convert = convert;
 	}
 
 	public getAll(): Observable<Array<T>> {
@@ -56,6 +58,6 @@ export abstract class AbstractService<T extends AbstractModel> {
 			params = params.set('sortOrder', sortOrder.toString());
 		}	
 
-		return this.httpService.get(`/${this.baseUrl}s`, params).pipe(take(1));
+		return this.httpService.get(`/${this.baseUrl}s`, this.convert, params).pipe(take(1));
 	}
 }
