@@ -8,28 +8,16 @@ import { Image } from '@shared/model/image.model';
 	templateUrl: './table.component.html',
 	styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements OnInit {
+export class TableComponent {
 	private sortBy: string;
 	private sortOrder: number;
 
-	@Input() listOfItems: Array<any>;
+    @Input() dataType: string;
+    @Input() listOfItems: Array<any>;
 	@Output() onSortChange = new EventEmitter();
 	@Output() onNavigate = new EventEmitter();
 
-	public dataType: string;
 	public previewImage;
-	
-	ngOnInit() {
-		// TO DO: CHANGE THIS
-		const item: any = this.listOfItems[0];
-		if (item.__t) {
-			this.dataType = item.__t;
-		} else if(item.talent) {
-			this.dataType = "Queue";
-		} else {
-			this.dataType = "Talent";
-		}
-	}
 
 	public onNavigateClick() {
 		this.onNavigate.emit();

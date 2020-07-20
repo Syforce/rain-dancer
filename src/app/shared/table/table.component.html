@@ -1,6 +1,6 @@
 <div class="table">
     <div class="row">
-        <div *ngIf="dataType === 'Image'" class="cell">
+        <div *ngIf="dataType === 'image'" class="cell">
             <span id="preview" (click)="onSortClick($event)">Preview</span>
         </div>
         <div class="cell">
@@ -12,12 +12,12 @@
         <div class="cell">
             <span id="updatedAt" (click)="onSortClick($event)">Updated At</span>
         </div>
-        <div *ngIf="dataType === 'Queue'" class="cell">
+        <div *ngIf="dataType === 'queue'" class="cell">
             <span id="status" (click)="onSortClick($event)">Status</span>
         </div>
     </div>
     <div class="row" *ngFor="let item of listOfItems">
-        <div *ngIf="dataType === 'Image'" class="cell">
+        <div *ngIf="dataType === 'image'" class="cell">
             <span (click)="showPreviewImage(item)">[IMG]</span>
             <img *ngIf="previewImage && previewImage._id === item._id" src="{{previewImage.thumbnail}}">
         </div>
@@ -30,7 +30,7 @@
         <div class="cell">
             <span>{{item.updatedAt}}</span>
         </div>
-        <div *ngIf="dataType === 'Queue'" class="cell">
+        <div *ngIf="dataType === 'queue'" class="cell">
             <span>{{item.status}}</span>
         </div>
     </div>
