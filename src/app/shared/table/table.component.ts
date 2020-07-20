@@ -29,7 +29,6 @@ export class TableComponent implements OnInit {
 		} else {
 			this.dataType = "Talent";
 		}
-		console.log(this.dataType);
 	}
 
 	public onNavigateClick() {

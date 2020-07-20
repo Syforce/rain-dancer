@@ -25,6 +25,9 @@ import { VideoComponent } from '@video/video/video.component';
 import { VideoService } from '@video/video.service';
 import { ThumbnailListComponent } from '@video/thumbnail-list/thumbnail-list.component';
 
+import { QueueDashboardComponent } from './queue/queue-dashboard.component';
+import { QueueService } from './queue/queue.service';
+
 import { TableComponent } from '@shared/table/table.component';
 import { TableHeaderComponent } from '@shared/table-header/table-header.component';
 import { TableFooterComponent } from '@shared/table-footer/table-footer.component';
@@ -39,6 +42,7 @@ import { HttpService } from '@shared/service/http.service';
 import { ROUTES } from './app.router';
 
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { QueueListComponent } from './queue/queue-list/queue-list.component';
 
 @NgModule({
 	declarations: [
@@ -57,7 +61,10 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 		VideoDashboardComponent,
 		VideoListComponent,
 		VideoComponent,
-		ThumbnailListComponent,
+        ThumbnailListComponent,
+        
+        QueueDashboardComponent,
+        QueueListComponent,
 
 		TableComponent,
 		TableHeaderComponent,
@@ -77,7 +84,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 		TalentService,
 		ImageService,
 		VideoService,
-		MediaService
+        MediaService,
+        QueueService,
 	],
 	bootstrap: [App]
 })
