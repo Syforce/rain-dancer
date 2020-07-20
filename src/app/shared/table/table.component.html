@@ -15,7 +15,7 @@
     </div>
     <div class="row" *ngFor="let item of listOfItems">
         <div class="cell">
-            <span (click)="showPreviewImage(item)">[IMG]</span>
+            <div class="img-placeholder" (click)="showPreviewImage(item)"><i class="fa fa-picture-o fa-2x"></i></div>
             <img *ngIf="previewImage && previewImage._id === item._id" src="{{previewImage.thumbnail}}">
         </div>
         <div class="cell">

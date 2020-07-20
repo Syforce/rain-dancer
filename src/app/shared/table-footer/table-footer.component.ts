@@ -9,6 +9,10 @@ export class TableFooterComponent implements OnInit {
 	private currentPage: number = 1;
 	private _itemsPerPage: number;
 	public nrOfPages: number;
+	public previousTagVisible: boolean;
+	public nextTagVisible: boolean;
+	public previousDotsVisible: boolean;
+	public nextDotsVisible: boolean;
 
 	@Input() set itemsPerPage(value: number) {
 		this._itemsPerPage = value;
@@ -26,9 +30,39 @@ export class TableFooterComponent implements OnInit {
 		this.nrOfPages = Math.ceil(this.nrOfItems / this._itemsPerPage);
 	}
 
+
 	public jumpTo(page: number) {
 		this.currentPage = page;
 		this.onPageChange.emit(this.currentPage);
+		this.previousTagVisible = false;
+	}
+
+	get prevDots() {
+		if (this.first < this.prev - 1) {
+			return true;
+		}
+		return false;
+	}
+
+	get nextDots() {
+		if (this.last > this.next + 1) {
+			return true;
+		}
+		return false;
+	}
+
+	get prevTag() {
+		if (this.current - this.first > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	get nextTag() {
+		if (this.last - this.current > 0) {
+			return true;
+		}
+		return false;
 	}
 
 	get first() {

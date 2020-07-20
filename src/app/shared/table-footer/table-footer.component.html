@@ -1,9 +1,13 @@
 <div class="table-footer">
+    <span *ngIf="prevTag">Previous</span>
     <div class="options-list">
-        <input (click)="jumpTo(first)" [ngModel]="first" *ngIf="first != current" class="option" readonly>
-        <input (click)="jumpTo(prev)" [ngModel]="prev" *ngIf="prev > 1" class="option" readonly>
-        <input (click)="jumpTo(current)" [ngModel]="current" class="option" readonly>
-        <input (click)="jumpTo(next)" [ngModel]="next" *ngIf="next < nrOfPages" class="option" readonly>
-        <input (click)="jumpTo(last)" [ngModel]="last" *ngIf="last != current" class="option" readonly>
+        <input type="button" (click)="jumpTo(first)" [ngModel]="first" *ngIf="first != current" class="option" readonly>
+        <span *ngIf="prevDots">...</span>
+        <input type="button" (click)="jumpTo(prev)" [ngModel]="prev" *ngIf="prev > 1" class="option" readonly>
+        <input type="button" [ngStyle]="{'background-color':'#3AA7FA', 'color':'#FFFF'}" (click)="jumpTo(current)" [ngModel]="current" class="option" readonly>
+        <input type="button" (click)="jumpTo(next)" [ngModel]="next" *ngIf="next < nrOfPages" class="option" readonly>
+        <span *ngIf="nextDots">...</span>
+        <input type="button" (click)="jumpTo(last)" [ngModel]="last" *ngIf="last != current" class="option" readonly>
     </div>
+    <span *ngIf="nextTag">Next</span>
 </div>

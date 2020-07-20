@@ -1,9 +1,40 @@
 .table-footer {
+    display: flex;
+    width: max-content;
+    margin: auto 0px 30px auto;
+    justify-content: right;
+    float: right;
+
+    span {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--dark-grey);
+        margin-top: 3px;
+        &:first-child {
+            margin-right: 5px;
+        }
+    }
+
     .options-list {
         display: flex;
 
+        span {
+            margin-right: 5px;
+            letter-spacing: 2px;
+        }
+
         .option {
-            margin-right: 10px;
+            outline: none;
+            width: 25px;
+            height: 25px;
+            margin-right: 5px;
+            cursor: pointer;
+            border: none;
+            font-weight: 600;
+            font-size: 13px;
+            background-color: transparent;
+            color: var(--dark-grey);
+            border-radius: 3px;
         }
     }
 }
