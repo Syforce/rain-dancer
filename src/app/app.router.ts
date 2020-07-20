@@ -12,6 +12,9 @@ import { VideoDashboardComponent } from '@video/video-dashboard.component';
 import { VideoListComponent } from '@video/video-list/video-list.component';
 import { VideoComponent } from '@video/video/video.component';
 
+import { QueueDashboardComponent } from './queue/queue-dashboard.component';
+import { QueueListComponent } from './queue/queue-list/queue-list.component';
+
 export const ROUTES: Routes = [{
 	path: 'talent',
 	component: TalentDashboardComponent,
@@ -51,4 +54,11 @@ export const ROUTES: Routes = [{
 		path: ':id',
 		component: VideoComponent
 	}]
+}, {
+    path: 'queue',
+    component: QueueDashboardComponent,
+    children: [{
+        path: '',
+        component: QueueListComponent
+    }]
 }];

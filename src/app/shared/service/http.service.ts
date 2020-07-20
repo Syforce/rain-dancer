@@ -17,8 +17,10 @@ export class HttpService {
 		this.httpClient = httpClient;
 	}
 
-	public get(url, params?): Observable<any> {
-		return this.httpClient.get(`${BASE_URL}${url}`, {params});
+	public get(url, convert: boolean = false, params?): Observable<any> {
+		const domain: string = convert ? CONVERT_URL : BASE_URL;
+
+		return this.httpClient.get(`${domain}${url}`, {params});
 	}
 
 	public post(url, data, convert: boolean = false): Observable<any> {
