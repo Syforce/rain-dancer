@@ -61,10 +61,10 @@ import { QueueListComponent } from './queue/queue-list/queue-list.component';
 		VideoDashboardComponent,
 		VideoListComponent,
 		VideoComponent,
-        ThumbnailListComponent,
-        
-        QueueDashboardComponent,
-        QueueListComponent,
+		ThumbnailListComponent,
+		
+		QueueDashboardComponent,
+		QueueListComponent,
 
 		TableComponent,
 		TableHeaderComponent,
@@ -84,8 +84,8 @@ import { QueueListComponent } from './queue/queue-list/queue-list.component';
 		TalentService,
 		ImageService,
 		VideoService,
-        MediaService,
-        QueueService,
+		MediaService,
+		QueueService,
 	],
 	bootstrap: [App]
 })
