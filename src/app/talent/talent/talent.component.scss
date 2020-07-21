@@ -1,0 +1,128 @@
+.talent {
+    font-family: "RadikalW01-Thin";
+    font-weight: 600; 
+    color: var(--dark-blue-primary);
+
+    form {
+
+        .row {
+
+            .item {
+
+                div {
+                    margin-bottom: 5px;;
+                    label {
+                        margin-right: 5px;
+                    }
+
+                    i {
+                        font-family: 'FontAwesome';
+                        font-style: normal;
+                    }
+
+                }
+
+                input {
+                    padding: 7px;
+                    outline: none;
+                    border: none;
+                    border: 1px solid var(--light-grey-secondary);
+                    border-radius: 3px;
+                }
+            }
+        }
+
+        .social-media-input {
+            margin-bottom: 25px;
+        }
+
+        .upload-item {
+            display: grid;
+
+            .item {
+
+                .upload-container {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    height: 400px;
+
+                    .input-file {
+                        width: 0.1px;
+                        height: 0.1px;
+                        opacity: 0;
+                        overflow: hidden;
+                        position: absolute;
+                        z-index: -1;
+                    }
+
+                    label {
+                        cursor: pointer;
+                        margin: auto;
+                        padding: 17px 10px 10px 10px;
+                        text-align: center;
+                        height: 35px;
+                        border-radius: 3px;
+                        background-color: var(--upload-button-primary);
+
+                        i {
+                            margin-right: 5px;
+                            font-family: 'FontAwesome';
+                        }
+                    }
+                    
+                    label:hover {
+                        background-color: var(--upload-button-secondary);
+                    }
+
+                    image-cropper {
+                        margin: auto;
+                        width: 450px;
+                        background-color: transparent;
+                    }
+                   
+                }
+            }
+        }
+
+        .editor {
+            margin-bottom: 35px;
+        }
+
+        button {
+            margin: auto;
+            width: 135px;
+            padding: 15px 0;
+            cursor: pointer;
+            background-color: var(--dark-blue-primary);
+            color: #FFFF;
+            border: none;
+            border-radius: 3px;
+            font-family: "RadikalW01-Regular";
+            font-size: 17px;
+            letter-spacing: 1px;
+            outline: none;
+
+            &:hover {
+                background-color: var(--dark-blue-secondary);
+            }
+        }
+
+        .header {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--dark-blue-primary);
+            background-color: var(--light-grey-primary);
+        }
+
+        .checkbox {
+            margin: auto 0;
+            cursor: pointer;
+            height: 20px;
+            width: 20px;
+        }
+
+        .media {
+            margin-bottom: 50px;
+        }
+    }
+} 

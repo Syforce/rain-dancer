@@ -23,7 +23,7 @@ export const ROUTES: Routes = [{
 		component: TalentListComponent
 	}, {
 		path: 'new',
-		component: TalentComponent
+		component: TalentComponent,
 	}, {
 		path: ':id',
 		component: TalentComponent

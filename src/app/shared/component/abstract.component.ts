@@ -52,7 +52,7 @@ export abstract class AbstractComponent<T extends AbstractModel> implements OnIn
 	}
 
 	protected setItem(item: T) {
-		this.item = item;
+		this.item = item ? item : <T>{};
 	}
 
 	private getById(id: string) {

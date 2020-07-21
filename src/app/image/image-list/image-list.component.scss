@@ -1,14 +1,16 @@
 
 .image-list {
+    margin-bottom: 50px;
     display: flex;
     flex-direction: column;
     font-family: "RadikalW01-Regular";
 
     .table-options {
         display: flex;
+        margin-bottom: 10px;
 
         button {
-            margin: auto auto 10px 0px;
+            margin: 0px 0px 0px 0px;
             width: 100px;
             padding: 5px 0px;
             font-family: "RadikalW01-Regular";
@@ -28,7 +30,7 @@
     
         .select-box {
             text-align: right;
-            margin: auto 0px 10px auto;
+            margin: 0px 0px 0px auto;
     
             span {
                 color: var(--dark-grey);

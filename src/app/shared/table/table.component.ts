@@ -15,12 +15,12 @@ export class TableComponent {
     @Input() dataType: string;
     @Input() listOfItems: Array<any>;
 	@Output() onSortChange = new EventEmitter();
-	@Output() onNavigate = new EventEmitter();
+	@Output() onNavigate = new EventEmitter<string>();
 
 	public previewImage;
 
-	public onNavigateClick() {
-		this.onNavigate.emit();
+	public onNavigateClick(id: string) {
+		this.onNavigate.emit(id);
 	}
 
 	public onSortClick(event: any) {
