@@ -22,7 +22,7 @@
             <img *ngIf="previewImage && previewImage._id === item._id" src="{{previewImage.thumbnail}}">
         </div>
         <div class="cell">
-            <span class="talent-title" (click)='onNavigateClick(item._id)'>{{item.title}}</span>
+            <span class="talent-title" (click)="onNavigateClick(item._id)">{{item.title}}</span>
         </div>
         <div class="cell">
             <span>{{item.createdAt}}</span>

@@ -3,7 +3,7 @@
         <button class="button-new" (click)="navigateToNew()">New</button>
         <div class="select-box">
             <span>Show</span>
-            <table-header (onValueChange)='setItemsPerPage($event)' [itemsPerPage]='itemsPerPage'></table-header>
+            <table-header (onValueChange)="setItemsPerPage($event)" [itemsPerPage]="itemsPerPage"></table-header>
             <span>entries</span>
         </div>
     </div>
