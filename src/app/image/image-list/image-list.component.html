@@ -7,6 +7,6 @@
             <span>entries</span>
         </div>
     </div>
-    <table *ngIf="list && list.length" [listOfItems]='list' (onSortChange)='setSortOptions($event)' (onNavigate)='navigateToNew()' [dataType]="'Image'"></table>
-    <table-footer *ngIf="list && list.length" [itemsPerPage]="itemsPerPage" [nrOfItems]="nrOfItems" (onPageChange)='setCurrentPage($event)'></table-footer>
+    <table *ngIf="list && list.length" [listOfItems]="list" (onSortChange)="setSortOptions($event)" (onNavigate)="navigateToNew()" [dataType]="'Image'"></table>
+    <table-footer *ngIf="list && list.length" [itemsPerPage]="itemsPerPage" [nrOfItems]="nrOfItems" (onPageChange)="setCurrentPage($event)"></table-footer>
 </div>
