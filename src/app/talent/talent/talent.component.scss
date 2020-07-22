@@ -10,7 +10,7 @@
             .item {
 
                 div {
-                    margin-bottom: 5px;;
+                    margin-bottom: 5px;
                     label {
                         margin-right: 5px;
                     }
@@ -91,20 +91,6 @@
         button {
             margin: auto;
             width: 135px;
-            padding: 15px 0;
-            cursor: pointer;
-            background-color: var(--dark-blue-primary);
-            color: #FFFF;
-            border: none;
-            border-radius: 3px;
-            font-family: "RadikalW01-Regular";
-            font-size: 17px;
-            letter-spacing: 1px;
-            outline: none;
-
-            &:hover {
-                background-color: var(--dark-blue-secondary);
-            }
         }
 
         .header {

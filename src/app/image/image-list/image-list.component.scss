@@ -9,35 +9,21 @@
         display: flex;
         margin-bottom: 10px;
 
-        button {
-            margin: 0px 0px 0px 0px;
+        .button-new {
+            margin: 0;
             width: 100px;
-            padding: 5px 0px;
-            font-family: "RadikalW01-Regular";
-            font-size: 15px;
-            font-weight: 600;
-            color: #FFFF;
-            background-color: var(--light-blue-primary);
-            border: none;
-            border-radius: 3px;
-            letter-spacing: 1px;
-            cursor: pointer;
-    
-            &:hover {
-                background-color: var(--light-blue-secondary);
-            }
         }
     
         .select-box {
             text-align: right;
-            margin: 0px 0px 0px auto;
+            margin: 0 0 0 auto;
     
             span {
                 color: var(--dark-grey);
             }
             
             table-header {
-                margin: 0px 5px;
+                margin: 0 5px;
             }
         }
     }

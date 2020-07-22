@@ -1,0 +1,32 @@
+button {
+    padding: 10px;
+    font-family: "RadikalW01-Regular";
+    font-size: 15px;
+    cursor: pointer;
+    background-color: var(--dark-blue-primary);
+    color: #FFFF;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+
+    &:hover {
+        background-color: var(--dark-blue-secondary);
+    }
+}
+
+.button-new {
+    padding: 5px 0px;
+    font-family: "RadikalW01-Regular";
+    font-size: 15px;
+    font-weight: 600;
+    color: #FFFF;
+    background-color: var(--light-blue-primary);
+    border: none;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--light-blue-secondary);
+    }
+}

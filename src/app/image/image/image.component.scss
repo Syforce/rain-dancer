@@ -6,8 +6,8 @@
         grid-gap: 25px;
 
         .column {
-            .item {
 
+            .item {
                 margin-bottom: 20px;
 
                 label {
@@ -82,18 +82,6 @@
         button {
             margin: auto;
             width: 120px;
-            padding: 10px;
-            font-family: "RadikalW01-Regular";
-            font-size: 15px;
-            cursor: pointer;
-            background-color: var(--dark-blue-primary);
-            color: #FFFF;
-            border: none;
-            border-radius: 3px;
-
-            &:hover {
-                background-color: var(--dark-blue-secondary);
-            }
         }
     }
 }
