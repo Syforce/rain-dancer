@@ -1,7 +1,13 @@
 <div class="image-list">
-    <h3 (click)="navigateToNew()">New</h3>
+    <div class="table-options">
+        <button class="button-new" (click)="navigateToNew()">New</button>
+        <div class="select-box">
+            <span>Show</span>
+            <table-header (onValueChange)="setItemsPerPage($event)" [itemsPerPage]="itemsPerPage"></table-header>
+            <span>entries</span>
+        </div>
+    </div>
     <div *ngIf="list && list.length" class="table">
-        <table-header (onValueChange)='setItemsPerPage($event)' [itemsPerPage]='itemsPerPage'></table-header>
         <table [dataType]="'image'" [listOfItems]='list' (onSortChange)='setSortOptions($event)' (onNavigate)='navigateToNew()'></table>
         <table-footer [itemsPerPage]="itemsPerPage" [nrOfItems]="nrOfItems" (onPageChange)='setCurrentPage($event)'></table-footer>
     </div>

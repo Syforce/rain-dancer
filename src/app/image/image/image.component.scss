@@ -1,0 +1,87 @@
+.image {
+    font-family: "RadikalW01-Regular";
+    .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 25px;
+
+        .column {
+
+            .item {
+                margin-bottom: 20px;
+
+                label {
+                    font-family: "RadikalW01-Thin";
+                    margin-bottom: 5px;
+                    color: var(--dark-blue-primary);
+                    font-size: 17px;
+                    font-weight: 600;
+                }
+
+                input {
+                    padding: 7px;
+                    outline: none;
+                    border: none;
+                    border: 1px solid var(--light-grey-secondary);
+                    border-radius: 3px;
+                }
+
+                combo-box {
+                    outline: none;
+                    border: none;
+                    border: 1px solid var(--light-grey-secondary);
+                    border-radius: 3px;
+                }
+            }
+
+            .upload-container {
+                display: grid;
+                grid-template-rows: 20% 80%;
+                height: 400px;
+
+                .input-file {
+                    width: 0.1px;
+                    height: 0.1px;
+                    opacity: 0;
+                    overflow: hidden;
+                    position: absolute;
+                    z-index: -1;
+                }
+
+                label {
+                    cursor: pointer;
+                    margin: auto;
+                    padding: 17px 10px 10px 10px;
+                    text-align: center;
+                    height: 35px;
+                    border-radius: 3px;
+                    background-color: var(--upload-button-primary);
+
+                    i {
+                        margin-right: 5px;
+                        font-family: 'FontAwesome';
+                        font-style: normal;
+                    }
+                }
+                
+                label:hover {
+                    background-color: var(--upload-button-secondary);
+                }
+
+                image-cropper {
+                    margin: auto;
+                    width: 450px;
+                    background-color: transparent;
+                }
+               
+            }
+        }
+    }
+
+    .footer {
+        button {
+            margin: auto;
+            width: 120px;
+        }
+    }
+}

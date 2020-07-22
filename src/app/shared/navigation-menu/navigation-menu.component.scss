@@ -1,11 +1,39 @@
 .navigation-menu {
+	width: 100%;
+	font-family: "RadikalW01-Thin";
+	font-size: 20px;
+	font-weight: 500;
+	background-color: var(--dark-blue-primary);
+	color: #FFFF;
+	padding: 5px 0px;
+	margin: 0 0 50px 0;
+	height: 60px;
+	display: flex;
 	ul {
+		width: 90%;
+		margin: auto;
 		display: flex;
+		text-align: center;
 
 		li {
+			margin: auto;
 			width: 100%;
 			padding: 5px 10px;
 			cursor: pointer;
+		}
+
+		li:after {
+			display:block;
+			content: '';
+			padding: 5px 0px;
+			border-bottom: solid 1px white;  
+			transform: scaleX(0); 
+			transform-origin:  0% 70%;  
+			transition: all 0.7s ease-in-out;
+		}
+
+		li:hover:after {
+			transform: scaleX(1); 
 		}
 	}
 }

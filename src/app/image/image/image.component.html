@@ -17,8 +17,11 @@
 			</div>
 			<div class="column">
 				<div class="item">
-					<input type="file" name="file" (change)="onFileChange($event)">
-					<image-cropper [imageChangedEvent]="originalImage" format="jpeg" (imageCropped)="onImageCropped($event)"></image-cropper>
+					<div class="upload-container">
+						<label for="file"><i class="fas fa-upload"></i>Upload Image</label>
+						<input class="input-file" type="file" name="file" id="file" (change)="onFileChange($event)">
+						<image-cropper [imageChangedEvent]="originalImage" format="jpeg" (imageCropped)="onImageCropped($event)"></image-cropper>
+					</div>
 				</div>
 			</div>
 		</div>

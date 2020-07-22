@@ -1,6 +1,9 @@
 <div class="app">
-	<ckeditor [editor]="Editor" data="<p>Hello, world!</p>"></ckeditor>
+	<!-- <ckeditor [editor]="Editor" data="<p>Hello, world!</p>"></ckeditor> -->
 
 	<navigation-menu></navigation-menu>
-	<router-outlet></router-outlet>
+	<div class="container">
+		<router-outlet></router-outlet>
+	</div>
+	
 </div>

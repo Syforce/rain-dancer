@@ -1,0 +1,32 @@
+
+.image-list {
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    font-family: "RadikalW01-Regular";
+
+    .table-options {
+        display: flex;
+        margin-bottom: 10px;
+
+        .button-new {
+            margin: 0;
+            width: 100px;
+        }
+    
+        .select-box {
+            text-align: right;
+            margin: 0 0 0 auto;
+    
+            span {
+                color: var(--dark-grey);
+            }
+            
+            table-header {
+                margin: 0 5px;
+            }
+        }
+    }
+
+
+}

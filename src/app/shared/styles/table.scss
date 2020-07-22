@@ -1,19 +1,32 @@
 .table {
 	.row {
 		display: flex;
-		border-top: 1px solid #000;
+		border-top: 1px solid var(--light-grey-secondary);
+
+		&:first-child {
+			border-bottom: 2px solid var(--light-grey-secondary);
+		}
 
 		&:last-child {
-			border-bottom: 1px solid #000;
+			border-bottom: 1px solid var(--light-grey-secondary);
 		}
 
 		> .cell {
 			width: 100%;
-			padding: 5px 10px;
-			border-left: 1px solid #000;
+			height: 50px;
+			padding: 10px 10px 10px 30px;
+			display: flex;
 
-			&:last-child {
-				border-right: 1px solid #000;
+			span {
+				margin-top: auto;
+				margin-bottom: auto;
+			}
+
+			.img-placeholder {
+				i {
+					margin-top: auto;
+					margin-bottom: auto;
+				}
 			}
 		}
 	}

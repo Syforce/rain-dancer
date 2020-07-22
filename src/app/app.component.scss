@@ -1,6 +1,9 @@
 :host {
 	.app {
-		max-width: 1240px;
 		margin: 0 auto;
+
+		.container {
+			margin: 0px 75px 75px 75px;
+		}
 	}
 }

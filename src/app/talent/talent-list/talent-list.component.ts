@@ -19,7 +19,13 @@ export class TalentListComponent extends AbstractListComponent<Talent> {
 	}
 
 	public navigateToNew() {
-		this.router.navigate(['new'], {
+		this.router.navigate(["new"], {
+			relativeTo: this.activatedRoute
+		});
+	}
+
+	public navigateToEdit(id: string) {
+		this.router.navigate([id], {
 			relativeTo: this.activatedRoute
 		});
 	}
