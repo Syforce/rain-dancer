@@ -21,4 +21,10 @@ export class ImageListComponent extends AbstractListComponent<Image> {
 			relativeTo: this.activatedRoute
 		});
 	}
+
+	public navigateToEdit(id: string) {
+		this.router.navigate([id], {
+			relativeTo: this.activatedRoute
+		});
+	}
 }

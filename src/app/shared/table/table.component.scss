@@ -20,6 +20,10 @@
             .cell {
                 position: relative;
 
+                .talent-title {
+                    cursor: pointer;
+                }
+
                 span {
                     color: var(--dark-grey);
                     font-size: 16px;
