@@ -9,4 +9,6 @@ export interface Talent extends AbstractModel {
 	linkedin?: string;
 	website?: string;
 	about?: string;
+	listingImage?: string;
+	profileImage?: string;
 }

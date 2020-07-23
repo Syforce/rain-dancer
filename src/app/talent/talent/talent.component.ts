@@ -18,7 +18,6 @@ import * as ClassicEditor from 'asdasd123qwe';
 })
 export class TalentComponent extends AbstractComponent<Talent> {
 	private mediaService: MediaService;
-	private talentService: TalentService;
 	private listingFile: File;
 	private profileFile: File;
 
@@ -39,6 +38,10 @@ export class TalentComponent extends AbstractComponent<Talent> {
 	ngOnInit() {
 		super.ngOnInit();
 		if (this.editModeId) {
+			this.service.getById(this.editModeId).subscribe((talent: Talent) => {
+				this.listingImage = talent.listingImage;
+				this.profileImage = talent.profileImage;
+			})
 			this.mediaService.getMediaByTalent(this.editModeId).subscribe((medias: Array<Media>) => {
 				this.medias = medias;
 				this.originalMedias = JSON.parse(JSON.stringify(medias));
@@ -126,7 +129,7 @@ export class TalentComponent extends AbstractComponent<Talent> {
 	public update() {
 		super.update();
 		const mediasToUpdate = this.getModifiedMedias();
-		this.mediaService.updateMedias(mediasToUpdate).subscribe((data) => { });
+		this.mediaService.updateMedias(mediasToUpdate).subscribe((data) => {});
 
 	}
 }
