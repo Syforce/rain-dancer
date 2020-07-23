@@ -53,6 +53,7 @@ export class ImageComponent extends AbstractComponent<Image> {
 	}
 
 	public save() {
+		console.log('aici sunt');
 		fetch(this.croppedImage)
 		.then(result => result.blob())
 		.then((blob) => {
