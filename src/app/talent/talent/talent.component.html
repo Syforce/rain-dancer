@@ -88,12 +88,12 @@
 						<span>Type</span>
 					</div>
 				</div>
-				<div class="row" *ngFor="let media of medias; let i = index">
+				<div class="row" *ngFor="let media of medias">
 					<div class="cell">
 						<span>{{media?.title}}</span>
 					</div>
 					<div class="cell">
-						<input class="checkbox" type="checkbox" name="published" (click)="togglePublished(i)" [(ngModel)]="media.published" [ngModelOptions]="{standalone: true}">
+						<input class="checkbox" type="checkbox" name="published" (click)="togglePublished(media)" [(ngModel)]="media.published" [ngModelOptions]="{standalone: true}">
 					</div>
 					<div class="cell">
 						<span>{{media.__t}}</span>

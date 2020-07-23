@@ -111,8 +111,8 @@ export class TalentComponent extends AbstractComponent<Talent> {
 		});	
 	}
 
-	private togglePublished(index) {
-		this.medias[index].published = !this.medias[index].published;
+	private togglePublished(media) {
+		media.published = !media.published;
 	}
 
 	private getModifiedMedias() {
