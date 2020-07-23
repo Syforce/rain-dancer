@@ -10,4 +10,8 @@ export class TalentService extends AbstractService<Talent> {
 	constructor(httpService: HttpService) {
 		super(httpService, 'talent');
 	}
+
+	public updateTalent(talent: Talent) {
+		return this.httpService.put(`/${this.baseUrl}/talent/:id`, talent);
+	}
 }

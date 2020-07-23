@@ -18,6 +18,7 @@ import * as ClassicEditor from 'asdasd123qwe';
 })
 export class TalentComponent extends AbstractComponent<Talent> {
 	private mediaService: MediaService;
+	private talentService: TalentService;
 	private listingFile: File;
 	private profileFile: File;
 
@@ -26,12 +27,12 @@ export class TalentComponent extends AbstractComponent<Talent> {
 	public listingCroppedImage: any = '';
 	public profileCroppedImage: any = '';
 	public medias: Array<Media> = new Array<Media>();
+	public originalMedias: Array<Media> = new Array<Media>();
 
 	public Editor = ClassicEditor;
 
 	constructor(service: TalentService, activatedRoute: ActivatedRoute, router: Router, mediaService: MediaService) {
 		super(service, activatedRoute, router)
-
 		this.mediaService = mediaService;
 	}
 
@@ -40,6 +41,7 @@ export class TalentComponent extends AbstractComponent<Talent> {
 		if (this.editModeId) {
 			this.mediaService.getMediaByTalent(this.editModeId).subscribe((medias: Array<Media>) => {
 				this.medias = medias;
+				this.originalMedias = JSON.parse(JSON.stringify(medias));
 			});
 		}
 	}
@@ -106,11 +108,25 @@ export class TalentComponent extends AbstractComponent<Talent> {
 		});	
 	}
 
+	private togglePublished(index) {
+		this.medias[index].published = !this.medias[index].published;
+	}
+
+	private getModifiedMedias() {
+		const mediasToUpdate: Array<Media> = new Array<Media>();
+
+		for (let i = 0; i < this.medias.length; i++) {
+			if (this.medias[i].published !== this.originalMedias[i].published) {
+				mediasToUpdate.push(this.medias[i]);
+			}
+		}
+		return mediasToUpdate;
+	}
+
 	public update() {
 		super.update();
+		const mediasToUpdate = this.getModifiedMedias();
+		this.mediaService.updateMedias(mediasToUpdate).subscribe((data) => { });
 
-		this.mediaService.updateMedias(this.medias).subscribe((data) => {
-			console.log(data);
-		});
 	}
 }
