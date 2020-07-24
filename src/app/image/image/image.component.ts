@@ -10,6 +10,7 @@ import { Talent } from '@shared/model/talent.model';
 import { FormFile } from '@shared/service/model/form-file.model';
 
 import { ComboBoxConfig } from '@shared/framework/combo-box/combo-box.config';
+import { ResponseData } from '@shared/service/model/response-data.model';
 
 @Component({
 	selector: 'image',
@@ -34,12 +35,12 @@ export class ImageComponent extends AbstractComponent<Image> {
 	ngOnInit() {
 		super.ngOnInit();
 
-		this.talentService.getAll().subscribe((talents: Array<Talent>) => {
+		this.talentService.getAll().subscribe((data: ResponseData) => {
 			this.comboBoxConfig = {
 				targetData: this.item,
 				targetKey: 'talent'
 			};
-			this.talents = talents;
+			this.talents = data.list;
 		});
 	}
 

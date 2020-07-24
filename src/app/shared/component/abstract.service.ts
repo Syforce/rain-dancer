@@ -6,6 +6,7 @@ import { HttpService } from '@shared/service/http.service';
 import { AbstractModel } from '@shared/component/abstract.model';
 import { FormFile } from '@shared/service/model/form-file.model';
 import { HttpParams } from '@angular/common/http';
+import { ResponseData } from '@shared/service/model/response-data.model';
 
 export abstract class AbstractService<T extends AbstractModel> {
 	protected httpService: HttpService;
@@ -18,7 +19,7 @@ export abstract class AbstractService<T extends AbstractModel> {
 		this.convert = convert;
 	}
 
-	public getAll(): Observable<Array<T>> {
+	public getAll(): Observable<ResponseData> {
 		return this.httpService.get(`/${this.baseUrl}s`).pipe(take(1));
 	}
 
@@ -48,7 +49,7 @@ export abstract class AbstractService<T extends AbstractModel> {
 		return this.httpService.put(`/${this.baseUrl}/${item._id}`, item).pipe(take(1));
 	}
 
-	public getPaginated(currentPage: number, itemsPerPage: number, sortBy?: string, sortOrder?: number): Observable<Array<T>> {
+	public getPaginated(currentPage: number, itemsPerPage: number, sortBy?: string, sortOrder?: number): Observable<ResponseData> {
 		let params = new HttpParams()
 			.set('currentPage', currentPage.toString())
 			.set('itemsPerPage', itemsPerPage.toString());
