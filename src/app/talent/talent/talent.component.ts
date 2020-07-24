@@ -41,6 +41,7 @@ export class TalentComponent extends AbstractComponent<Talent> {
 			this.service.getById(this.editModeId).subscribe((talent: Talent) => {
 				this.listingImage = talent.listingImage;
 				this.profileImage = talent.profileImage;
+
 			})
 			this.mediaService.getMediaByTalent(this.editModeId).subscribe((medias: Array<Media>) => {
 				this.medias = medias;
@@ -69,13 +70,13 @@ export class TalentComponent extends AbstractComponent<Talent> {
 
 	private getImageFile(image, name) {
 		return fetch(image)
-		.then(blob => blob.blob())
-		.then((blob) => {
-			
-			return new File([blob], name, {
-				type: 'image/jpeg'
+			.then(blob => blob.blob())
+			.then((blob) => {
+
+				return new File([blob], name, {
+					type: 'image/jpeg'
+				});
 			});
-		});
 	}
 
 	public save() {
@@ -83,7 +84,6 @@ export class TalentComponent extends AbstractComponent<Talent> {
 		const listingPromise = this.getImageFile(this.listingCroppedImage, 'listingCropped');
 
 		Promise.all([profilePromise, listingPromise]).then((values) => {
-			console.log(values)
 			const profile: FormFile = {
 				file: this.profileFile,
 				key: 'profileImage'
@@ -107,8 +107,8 @@ export class TalentComponent extends AbstractComponent<Talent> {
 			this.service.createForm(this.item, [profile, profileCropped, listing, listingCropped]).subscribe((data) => {
 				console.log(data);
 			});
-			
-		});	
+
+		});
 	}
 
 	private togglePublished(media) {
@@ -126,10 +126,52 @@ export class TalentComponent extends AbstractComponent<Talent> {
 		return mediasToUpdate;
 	}
 
-	public update() {
-		super.update();
-		const mediasToUpdate = this.getModifiedMedias();
-		this.mediaService.updateMedias(mediasToUpdate).subscribe((data) => {});
+	public doSomething() {
+		console.log("merge");
+	}
 
+
+	public update() {
+		// super.update();
+		// const mediasToUpdate = this.getModifiedMedias();
+		// this.mediaService.updateMedias(mediasToUpdate).subscribe((data) => {});
+
+		const profilePromise = this.getImageFile(this.profileCroppedImage, 'profileCropped');
+		const listingPromise = this.getImageFile(this.listingCroppedImage, 'listingCropped');
+
+		Promise.all([profilePromise, listingPromise]).then((values) => {
+			const profile: FormFile = {
+				file: this.profileFile,
+				key: 'profileImage'
+			};
+
+			const profileCropped: FormFile = {
+				file: values[0],
+				key: 'profileCroppedImage'
+			};
+
+			const listing: FormFile = {
+				file: this.listingFile,
+				key: 'listingImage'
+			};
+
+			const listingCropped: FormFile = {
+				file: values[1],
+				key: 'listingCroppedImage'
+			};
+			this.item['medias'] = this.getModifiedMedias();
+			this.service.updateForm(this.item, [profile, profileCropped, listing, listingCropped]).subscribe((data) => {
+				console.log(data);
+			});
+
+		});
+	}
+
+	private checkButtonStatus() {
+		if (!(this.listingImage && this.profileImage)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

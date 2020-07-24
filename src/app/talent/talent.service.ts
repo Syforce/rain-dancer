@@ -12,6 +12,7 @@ export class TalentService extends AbstractService<Talent> {
 	}
 
 	public updateTalent(talent: Talent) {
+		console.log(talent);
 		return this.httpService.put(`/${this.baseUrl}/talent/${talent._id}`, talent);
 	}
 }

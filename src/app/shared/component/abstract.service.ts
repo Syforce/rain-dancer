@@ -6,6 +6,7 @@ import { HttpService } from '@shared/service/http.service';
 import { AbstractModel } from '@shared/component/abstract.model';
 import { FormFile } from '@shared/service/model/form-file.model';
 import { HttpParams } from '@angular/common/http';
+import { Media } from '@shared/model/media.model';
 
 export abstract class AbstractService<T extends AbstractModel> {
 	protected httpService: HttpService;
@@ -44,7 +45,27 @@ export abstract class AbstractService<T extends AbstractModel> {
 		return this.httpService.post(`/${this.baseUrl}`, formData, convert).pipe(take(1));
 	}
 
+	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	public updateForm(item: T, files: Array<FormFile>, convert: boolean = false) {
+		// console.log(item, files, convert);
+		const formData: FormData = new FormData();
+
+		files.forEach((formFile: FormFile) => {
+			formData.append(formFile.key, formFile.file, formFile.file.name);
+		});
+
+		Object.keys(item).forEach(key => {
+			if (key === 'medias') {
+				item[key] = JSON.stringify(item[key]);
+			}
+			formData.append(key, item[key])
+		});
+	
+		return this.httpService.post(`/${this.baseUrl}/${item._id}`, formData, convert).pipe(take(1));
+	}
+
 	public update(item: T): Observable<T> {
+		console.log(item);
 		return this.httpService.put(`/${this.baseUrl}/${item._id}`, item).pipe(take(1));
 	}
 
