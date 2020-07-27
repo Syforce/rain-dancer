@@ -237,11 +237,7 @@ export class TalentComponent extends AbstractComponent<Talent> {
 		}
 	}
 
-	private checkButtonStatus() {
-		if (!(this.listingImage && this.profileImage)) {
-			return true;
-		} else {
-			return false;
-		}
+	public checkButtonStatus() {
+		return !(this.listingImage && this.profileImage);
 	}
 }
