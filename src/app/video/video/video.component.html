@@ -2,6 +2,11 @@
 	<form>
 		<div class="row">
 			<div class="column">
+				<video *ngIf="item.path" [src]="item.path" controls></video>
+			</div>
+		</div>
+		<div class="row">
+			<div class="column">
 				<div class="item">
 					<label>Title</label>
 					<input type="text" name="name" [(ngModel)]="item.title">
@@ -12,15 +17,14 @@
 				</div>
 			</div>
 			<div class="column">
-				<div class="item">
+				<div *ngIf="!item.path" class="item">
 					<label>Video</label>
-					<input *ngIf="!item.path" type="file" name="file" (change)="onVideoFileChange($event)">
-					<video *ngIf="item.path" [src]="item.path" controls></video>
+					<input type="file" name="file" (change)="onVideoFileChange($event)">
 				</div>
 				<div class="item">
 					<label>Thumbnail</label>
 					<input type="file" name="file" (change)="onImageFileChange($event)">
-					<thumbnail-list></thumbnail-list>
+					<thumbnail-list *ngIf="item.thumbnails" [thumbnailsList]="item.thumbnails"></thumbnail-list>
 				</div>
 			</div>
 		</div>

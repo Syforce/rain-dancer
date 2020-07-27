@@ -1,0 +1,14 @@
+.thumbnails-list {
+    display: grid;
+    grid-template-columns: repeat(5, 200px);
+    grid-auto-rows: min-content;
+    column-gap: 10px;
+    row-gap: 10px;
+    
+    .image {
+
+        img {
+            max-width: 200px;
+        }
+    };
+}

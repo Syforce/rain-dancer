@@ -21,4 +21,10 @@ export class VideoListComponent extends AbstractListComponent<Video> {
 			relativeTo: this.activatedRoute
 		});
 	}
+
+	public navigateToEdit(id: string) {
+		this.router.navigate([id], {
+			relativeTo: this.activatedRoute
+		});
+	}
 }
