@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AbstractService } from '@shared/component/abstract.service';
 import { SortOptions } from '@shared/service/model/sort-options.model';
+import { ResponseData } from '@shared/service/model/response-data.model';
 
 export abstract class AbstractListComponent<T> implements OnInit {
 	private abstractService: AbstractService<T>;
@@ -23,9 +24,9 @@ export abstract class AbstractListComponent<T> implements OnInit {
 	}
 
 	ngOnInit() {
-		this.abstractService.getPaginated(this.currentPage, this.itemsPerPage).subscribe((responseData: any) => {
-			this.list = responseData.list;
-			this.nrOfItems = responseData.total;
+		this.abstractService.getPaginated(this.currentPage, this.itemsPerPage).subscribe((data: ResponseData) => {
+			this.list = data.list;
+			this.nrOfItems = data.total;
 		});
 	}
 
