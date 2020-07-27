@@ -11,4 +11,6 @@ export interface Talent extends AbstractModel {
 	about?: string;
 	listingImage?: string;
 	profileImage?: string;
+	listingCroppedImage?: string;
+	profileCroppedImage?: string;
 }

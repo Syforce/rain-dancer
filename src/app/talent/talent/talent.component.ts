@@ -10,6 +10,7 @@ import { Media } from '@shared/model/media.model';
 import { FormFile } from '@shared/service/model/form-file.model';
 
 import * as ClassicEditor from 'asdasd123qwe';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
 	selector: 'talent',
@@ -30,6 +31,11 @@ export class TalentComponent extends AbstractComponent<Talent> {
 
 	public Editor = ClassicEditor;
 
+	private startCroppingListingImage: number = -1;
+	private startCroppingProfileImage: number = -1;
+	private listingURL: boolean = true;
+	private profileURL: boolean = true;
+
 	constructor(service: TalentService, activatedRoute: ActivatedRoute, router: Router, mediaService: MediaService) {
 		super(service, activatedRoute, router)
 		this.mediaService = mediaService;
@@ -41,7 +47,8 @@ export class TalentComponent extends AbstractComponent<Talent> {
 			this.service.getById(this.editModeId).subscribe((talent: Talent) => {
 				this.listingImage = talent.listingImage;
 				this.profileImage = talent.profileImage;
-
+				this.listingCroppedImage = talent.listingCroppedImage;
+				this.profileCroppedImage = talent.profileCroppedImage;
 			})
 			this.mediaService.getMediaByTalent(this.editModeId).subscribe((medias: Array<Media>) => {
 				this.medias = medias;
@@ -53,19 +60,25 @@ export class TalentComponent extends AbstractComponent<Talent> {
 	public onListingChange(event) {
 		this.listingImage = event;
 		this.listingFile = event.target.files[0];
+		this.listingURL = false;
 	}
 
 	public onProfileChange(event) {
 		this.profileImage = event;
 		this.profileFile = event.target.files[0];
+		this.profileURL = false;
 	}
 
 	public onListingCropped(event) {
-		this.listingCroppedImage = event.base64;
+		if (this.startCroppingListingImage > 0) {
+			this.listingCroppedImage = event.base64;
+		}	
 	}
 
 	public onProfileCropped(event) {
-		this.profileCroppedImage = event.base64;
+		if (this.startCroppingProfileImage > 0) {
+			this.profileCroppedImage = event.base64;
+		}
 	}
 
 	private getImageFile(image, name) {
@@ -111,13 +124,8 @@ export class TalentComponent extends AbstractComponent<Talent> {
 		});
 	}
 
-	private togglePublished(media) {
-		media.published = !media.published;
-	}
-
 	private getModifiedMedias() {
 		const mediasToUpdate: Array<Media> = new Array<Media>();
-
 		for (let i = 0; i < this.medias.length; i++) {
 			if (this.medias[i].published !== this.originalMedias[i].published) {
 				mediasToUpdate.push(this.medias[i]);
@@ -126,45 +134,107 @@ export class TalentComponent extends AbstractComponent<Talent> {
 		return mediasToUpdate;
 	}
 
-	public doSomething() {
-		console.log("merge");
+	public onListingCropperChange() {
+		this.startCroppingListingImage++;
+	}
+
+	public onProfileCropperChange() {
+		this.startCroppingProfileImage++;
+	}
+
+	private updateOnlyDetailsAndMedia() {
+		super.update();
+		const mediasToUpdate = this.getModifiedMedias();
+		this.mediaService.updateMedias(mediasToUpdate).subscribe((data) => {});
+	}
+
+	private takeCroppedFromURL(croppedImage, customKey,  result) {
+		const croppedPromise = this.getImageFile(croppedImage, 'imageCropped.jpg');
+		
+		return Promise.all([croppedPromise]).then((values) => {
+			const imageCropped: FormFile = {
+				file: values[0],
+				key: customKey + 'CroppedImage'
+			};
+			result.push(imageCropped);
+		});
+	}
+
+	private takeImageAndCroppedImageFromPC(imageFile, imageCropped, customKey,  result) {
+		const imagePromise =  this.getImageFile(imageCropped, 'imageCropper.jpg');
+
+		return Promise.all([imagePromise]).then((values) => {
+			const image: FormFile = {
+				file: imageFile,
+				key: customKey + 'Image'
+			};
+
+			const imageCropped: FormFile = {
+				file: values[0],
+				key: customKey + 'CroppedImage'
+			};
+
+			Promise.resolve([image, imageCropped]).then((values) => {
+				result.push(values[0]);
+				result.push(values[1]);
+			});
+			
+		});
 	}
 
 
-	public update() {
-		// super.update();
-		// const mediasToUpdate = this.getModifiedMedias();
-		// this.mediaService.updateMedias(mediasToUpdate).subscribe((data) => {});
+	public async update() {
+		let listingImages: Array<any> = new Array<any>();
+		let profileImages: Array<any> = new Array<any>();
 
-		const profilePromise = this.getImageFile(this.profileCroppedImage, 'profileCropped');
-		const listingPromise = this.getImageFile(this.listingCroppedImage, 'listingCropped');
+		if (!(this.startCroppingListingImage > 0) && !(this.startCroppingProfileImage > 0)) {
+			this.updateOnlyDetailsAndMedia();
 
-		Promise.all([profilePromise, listingPromise]).then((values) => {
-			const profile: FormFile = {
-				file: this.profileFile,
-				key: 'profileImage'
-			};
+		} else {
 
-			const profileCropped: FormFile = {
-				file: values[0],
-				key: 'profileCroppedImage'
-			};
+			if (!this.listingURL) {
+				await this.takeImageAndCroppedImageFromPC(this.listingFile, this.listingCroppedImage, 'listing', listingImages);
+			} else {
+				const fileURL = {
+					file: this.listingImage,
+					key: 'listingImageURL'
+				}
+				listingImages.push(fileURL);
 
-			const listing: FormFile = {
-				file: this.listingFile,
-				key: 'listingImage'
-			};
+				if (!(this.startCroppingListingImage > 0)) {
+					const croppedURL = {
+						file: this.listingCroppedImage,
+						key: 'listingCroppedURL'
+					}
+					listingImages.push(croppedURL);
+				} else {
+					await this.takeCroppedFromURL(this.listingCroppedImage, 'listing', listingImages);
+				}
+			}
+	
+			if (!this.profileURL) {
+				await this.takeImageAndCroppedImageFromPC(this.profileFile, this.profileCroppedImage, 'profile', profileImages);
+			} else {
+				const fileURL = {
+					file: this.profileImage,
+					key: 'profileImageURL'
+				}
+				profileImages.push(fileURL);
+				
+				if (!(this.startCroppingProfileImage > 0)) {
+					const croppedURL = {
+						file: this.profileCroppedImage,
+						key: 'profileCroppedURL'
+					}
+					profileImages.push(croppedURL);
+				} else {
+					await this.takeCroppedFromURL(this.profileCroppedImage, 'profile', profileImages);
+				}
+			}
 
-			const listingCropped: FormFile = {
-				file: values[1],
-				key: 'listingCroppedImage'
-			};
 			this.item['medias'] = this.getModifiedMedias();
-			this.service.updateForm(this.item, [profile, profileCropped, listing, listingCropped]).subscribe((data) => {
-				console.log(data);
-			});
-
-		});
+			this.service.updateForm(this.item, [profileImages[0], profileImages[1], listingImages[0], listingImages[1]]).subscribe((data) => {});
+		}
 	}
 
 	private checkButtonStatus() {
