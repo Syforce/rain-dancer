@@ -12,6 +12,10 @@ button {
     &:hover {
         background-color: var(--dark-blue-secondary);
     }
+
+    &:disabled {
+        background-color: var(--dark-grey);
+    }
 }
 
 .button-new {
