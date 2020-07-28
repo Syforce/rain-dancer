@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { Ng5SliderModule } from 'ng5-slider';
 
 import { App } from './app.component';
 
@@ -77,7 +78,8 @@ import { QueueListComponent } from './queue/queue-list/queue-list.component';
 		HttpClientModule,
 		FormsModule,
 		ImageCropperModule,
-		CKEditorModule
+		CKEditorModule,
+		Ng5SliderModule
 	],
 	providers: [
 		HttpService,
