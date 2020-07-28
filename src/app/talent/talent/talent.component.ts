@@ -248,7 +248,4 @@ export class TalentComponent extends AbstractComponent<Talent> {
 		return !(this.listingImage && this.profileImage);
 	}
 
-	public loadImageFailed() {
-		console.log('e oke');
-	}
 }

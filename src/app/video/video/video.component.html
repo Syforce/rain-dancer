@@ -21,10 +21,26 @@
 					<label>Video</label>
 					<input type="file" name="file" (change)="onVideoFileChange($event)">
 				</div>
-				<div class="item">
+				<div class="item thumbnail-selection-section">
 					<label>Thumbnail</label>
-					<input type="file" name="file" (change)="onImageFileChange($event)">
-					<thumbnail-list *ngIf="item.thumbnails" [thumbnailsList]="item.thumbnails"></thumbnail-list>
+					<div class="thumbnail-selection-box">
+						<img src="{{thumbnailSrc}}" alt="">
+
+						<div class="default-thumbnail">
+							<i (click)="showThumbnailSelection()" class="fas fa-camera fa-2x"></i>
+							<span>Select</span>
+						</div>
+
+						<div class="custom-thumbnail">
+							<input class="input-file" id="file" type="file" name="file" (change)="onImageFileChange($event)">
+							<thumbnail-list (notifyThumbnail)="changeThumbnail($event)" (notifyClose)="closeThumbnailSelection($event)" *ngIf="item.thumbnails&&thumbnailListVisible" [thumbnailsList]="item.thumbnails"></thumbnail-list>
+							<div>
+								<label for="file"><i class="fas fa-upload fa-2x"></i></label>
+								<span>Upload</span>
+							</div>
+						</div>
+						
+					</div>
 				</div>
 			</div>
 		</div>
