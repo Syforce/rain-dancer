@@ -36,6 +36,10 @@ export class TalentComponent extends AbstractComponent<Talent> {
 	private listingURL: boolean = true;
 	private profileURL: boolean = true;
 
+	public listingImageFromURL: any = '';
+	public profileImageFromURL: any = '';
+
+
 	constructor(service: TalentService, activatedRoute: ActivatedRoute, router: Router, mediaService: MediaService) {
 		super(service, activatedRoute, router)
 		this.mediaService = mediaService;
@@ -49,6 +53,9 @@ export class TalentComponent extends AbstractComponent<Talent> {
 				this.profileImage = talent.profileImage;
 				this.listingCroppedImage = talent.listingCroppedImage;
 				this.profileCroppedImage = talent.profileCroppedImage;
+
+				this.listingImageFromURL = JSON.parse(JSON.stringify(talent.listingImage));
+				this.profileImageFromURL = JSON.parse(JSON.stringify(talent.profileImage));
 			})
 			this.mediaService.getMediaByTalent(this.editModeId).subscribe((medias: Array<Media>) => {
 				this.medias = medias;
@@ -239,5 +246,9 @@ export class TalentComponent extends AbstractComponent<Talent> {
 
 	public checkButtonStatus() {
 		return !(this.listingImage && this.profileImage);
+	}
+
+	public loadImageFailed() {
+		console.log('e oke');
 	}
 }
