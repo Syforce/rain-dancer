@@ -5,10 +5,6 @@ import { Component, Input, OnInit } from '@angular/core';
 	templateUrl: './thumbnail-list.component.html',
 	styleUrls: ['./thumbnail-list.component.scss']
 })
-export class ThumbnailListComponent implements OnInit {
+export class ThumbnailListComponent {
 	@Input() thumbnailsList: Array<string>;
-
-	ngOnInit() {
-		console.log(this.thumbnailsList);
-	}
 }

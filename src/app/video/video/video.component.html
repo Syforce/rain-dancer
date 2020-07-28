@@ -1,8 +1,13 @@
 <div class="video">
 	<form>
-		<div class="row">
+		<div *ngIf="item.path" class="row">
 			<div class="column">
-				<video *ngIf="item.path" [src]="item.path" controls></video>
+				<video [src]="item.path" #videoPlayer controls (loadedmetadata)="onDataLoaded($event)" (play)="onPlayClick()" (timeupdate)="onTimeUpdate()"></video>
+				<ng5-slider [(value)]="value"
+							[(highValue)]="highValue"
+							[options]="options"
+							(userChange)="onUserChange($event)">
+				</ng5-slider>
 			</div>
 		</div>
 		<div class="row">
