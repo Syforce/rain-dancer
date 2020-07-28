@@ -45,6 +45,27 @@ export abstract class AbstractService<T extends AbstractModel> {
 		return this.httpService.post(`/${this.baseUrl}`, formData, convert).pipe(take(1));
 	}
 
+
+	public updateForm(item: T, files: Array<FormFile>, convert: boolean = false) {
+		const formData: FormData = new FormData();
+
+		files.forEach((formFile: FormFile) => {
+			if (formFile.file.name) {
+				formData.append(formFile.key, formFile.file, formFile.file.name);
+			} else {
+				formData.append(`${formFile.key}`, formFile.file);
+			}	
+		});
+
+		Object.keys(item).forEach(key => {
+			if (key === 'medias') {
+				item[key] = JSON.stringify(item[key]);
+			}
+			formData.append(key, item[key])
+		});
+		return this.httpService.post(`/${this.baseUrl}/${item._id}`, formData, convert).pipe(take(1));
+	}
+
 	public update(item: T): Observable<T> {
 		return this.httpService.put(`/${this.baseUrl}/${item._id}`, item).pipe(take(1));
 	}

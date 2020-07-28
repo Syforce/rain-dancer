@@ -4,6 +4,7 @@ import { HttpService } from '@shared/service/http.service';
 import { AbstractService } from '@shared/component/abstract.service';
 
 import { Talent } from '@shared/model/talent.model';
+import { FormFile } from '@shared/service/model/form-file.model';
 
 @Injectable()
 export class TalentService extends AbstractService<Talent> {
@@ -12,6 +13,8 @@ export class TalentService extends AbstractService<Talent> {
 	}
 
 	public updateTalent(talent: Talent) {
+		console.log(talent);
 		return this.httpService.put(`/${this.baseUrl}/talent/${talent._id}`, talent);
 	}
+
 }
