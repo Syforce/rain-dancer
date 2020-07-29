@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { Directive, ElementRef } from '@angular/core';
+import { Thumbnail } from '@shared/model/thumbnail.model';
 
 @Component({
 	selector: 'thumbnail-list',
@@ -16,23 +17,27 @@ export class ThumbnailListComponent implements OnInit {
 	public notifyThumbnail: EventEmitter<any> = new EventEmitter<any>();
 
 	private newThumbnailURL: any = '';
+	public thumbnailsListWithSelect: Array<Thumbnail> = new Array<Thumbnail>();
+	private selectedThumbnail: Thumbnail = {url: '', selected: false};
 
 	public exitThumbnailSelection() {
 		this.notifyClose.emit(false);
 	}
 
-	public selectThumbnail(event) {
-		console.log(event.target.getAttribute('src'));
-		this.newThumbnailURL = event.target.getAttribute('src');
+	public selectThumbnail(item) {
+		this.selectedThumbnail.selected = false;
+		item.selected = true;
+		this.selectedThumbnail = item;
 	}
 
 	public saveThumbnailSelection() {
-		this.notifyThumbnail.emit(this.newThumbnailURL);
-		console.log(this.newThumbnailURL);
+		this.notifyThumbnail.emit(this.selectedThumbnail.url);
 		this.exitThumbnailSelection();
 	}
 
 	ngOnInit() {
-	
+		this.thumbnailsList.forEach((thumbnail) => {
+			this.thumbnailsListWithSelect.push({url: thumbnail, selected: false});
+		}) 	
 	}
 }

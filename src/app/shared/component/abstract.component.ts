@@ -1,4 +1,5 @@
-import { OnInit } from '@angular/core';
+import { OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 
 import { AbstractModel } from '@shared/component/abstract.model';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -55,9 +56,13 @@ export abstract class AbstractComponent<T extends AbstractModel> implements OnIn
 		this.item = item ? item : <T>{};
 	}
 
-	private getById(id: string) {
-		this.service.getById(id).subscribe((item: T) => {
+	protected getById(id: string): Observable<T> {
+		const observable: Observable<T> = this.service.getById(id);
+
+		observable.subscribe((item: T) => {
 			this.setItem(item);
 		});
+
+		return observable;
 	}
 }

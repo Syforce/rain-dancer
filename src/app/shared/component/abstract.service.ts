@@ -58,10 +58,11 @@ export abstract class AbstractService<T extends AbstractModel> {
 		});
 
 		Object.keys(item).forEach(key => {
+			console.log('abstarct: ', key);
 			if (key === 'medias') {
 				item[key] = JSON.stringify(item[key]);
 			}
-			formData.append(key, item[key])
+			formData.append(key,  item[key]);
 		});
 		return this.httpService.post(`/${this.baseUrl}/${item._id}`, formData, convert).pipe(take(1));
 	}

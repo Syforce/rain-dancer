@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
 	styleUrls: ['./video-dashboard.component.scss']
 })
 export class VideoDashboardComponent {
-	
+
 }

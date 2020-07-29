@@ -5,8 +5,8 @@
     </div>
 
     <div class="image-list">
-        <div *ngFor="let item of thumbnailsList" class="image">
-            <img src={{item}} alt="" (click)="selectThumbnail($event)">
+        <div *ngFor="let item of thumbnailsListWithSelect" class="image" [ngClass]="{'selected':item.selected === true}">
+            <img src={{item.url}} alt="" (click)="selectThumbnail(item)">
         </div>
     </div>
     
