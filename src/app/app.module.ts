@@ -89,7 +89,6 @@ import { MessengerService } from '@shared/service/message.service';
 		VideoService,
 		MediaService,
 		QueueService,
-		MessengerService,
 	],
 	bootstrap: [App]
 })

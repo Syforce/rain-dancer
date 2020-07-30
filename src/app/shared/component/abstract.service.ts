@@ -33,7 +33,7 @@ export abstract class AbstractService<T extends AbstractModel> {
 
 	public createForm(item: T, files: Array<FormFile>, convert: boolean = false) {
 		const formData: FormData = new FormData();
-
+		
 		files.forEach((formFile: FormFile) => {
 			formData.append(formFile.key, formFile.file, formFile.file.name);
 		});
@@ -49,7 +49,6 @@ export abstract class AbstractService<T extends AbstractModel> {
 	public updateForm(item: T, files: Array<FormFile>, convert: boolean = false) {
 		const formData: FormData = new FormData();
 
-		console.log(files);
 		files.forEach((formFile: FormFile) => {
 			if (formFile.file) {
 				if (formFile.file.name) {

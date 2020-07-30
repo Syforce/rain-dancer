@@ -7,7 +7,25 @@
 
 		.row {
 
+			margin-bottom: 60px;
+
 			.column {
+
+				.item {
+					margin-bottom: 15px;
+
+					input {
+						padding: 7px;
+						outline: none;
+						border: none;
+						border: 1px solid var(--light-grey-secondary);
+						border-radius: 3px;
+					}
+
+					combo-box {
+						border: 1px solid var(--light-grey-secondary);
+					}
+				}
 
 				
 				.thumbnail-selection-section {
@@ -55,6 +73,14 @@
 					}
 				}
 				
+			}
+		}
+
+		.footer {
+
+			button {
+				margin: auto;
+				width: 135px;
 			}
 		}
 

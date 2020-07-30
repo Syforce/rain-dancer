@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 import * as ClassicEditor from 'asdasd123qwe';
-import { MessengerService } from '@shared/service/message.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -11,13 +10,6 @@ import { Subscription } from 'rxjs';
 })
 export class App {
     public Editor = ClassicEditor;
-    public visibleOverlay: boolean = true;
-    private messageSubscription: Subscription;
-
-    constructor(private messengerService: MessengerService) { 
-        this.messengerService = messengerService;
-     }
-
 	ngOnInit() {
 		ClassicEditor
             .create(document.querySelector('#editor'), {
@@ -48,11 +40,6 @@ export class App {
             })
             .catch(() => {
                 console.log('photoooooooo caaatchhhhh');
-            });
-
-            this.messageSubscription = this.messengerService.message.subscribe(message => {
-                this.visibleOverlay = !this.visibleOverlay;
-                console.log(this.visibleOverlay);
             });
 	}
 }

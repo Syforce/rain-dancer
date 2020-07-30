@@ -13,7 +13,6 @@ import { ComboBoxConfig } from '@shared/framework/combo-box/combo-box.config';
 import { ResponseData } from '@shared/service/model/response-data.model';
 import { Options, ChangeContext, PointerType } from 'ng5-slider';
 import { Observable } from 'rxjs';
-import { MessengerService } from '@shared/service/message.service';
 
 const CONVERTION_LEVERAGE = 10;
 
@@ -24,7 +23,6 @@ const CONVERTION_LEVERAGE = 10;
 })
 export class VideoComponent extends AbstractComponent<Video> {
 	private talentService: TalentService;
-	private messengerService: MessengerService;
 	private videoFile: File;
 	private imageFile: File;
 	private imageURL: string;
@@ -60,11 +58,10 @@ export class VideoComponent extends AbstractComponent<Video> {
 	@Output()
 	public notifyOverlay: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-	constructor( messengerService: MessengerService, service: VideoService, activatedRoute: ActivatedRoute, router: Router, talentService: TalentService) {
+	constructor(service: VideoService, activatedRoute: ActivatedRoute, router: Router, talentService: TalentService) {
 		super(service, activatedRoute, router);
 
 		this.talentService = talentService;
-		this.messengerService = messengerService;
 	}
 
 	ngOnInit() {
@@ -91,18 +88,19 @@ export class VideoComponent extends AbstractComponent<Video> {
 	}
 
 	protected save() {
-		const video: FormFile = {
+		const file: FormFile = {
 			file: this.videoFile,
 			key: 'file'
 		};
 
-		const image: FormFile = {
+		const thumbnail: FormFile = {
 			file: this.imageFile,
-			key: 'selectedThumbnail'
+			key: 'thumbnail'
 		};
-
-
-		this.service.createForm(this.item, [video, image], true).subscribe((data) => {
+		
+		console.log('file: ', file);
+		console.log('thumbnail: ', thumbnail);
+		this.service.createForm(this.item, [file, thumbnail], true).subscribe((data) => {
 		});
 	}
 
@@ -125,12 +123,10 @@ export class VideoComponent extends AbstractComponent<Video> {
 
 	public showThumbnailSelection() {
 		this.thumbnailListVisible = true;
-		this.messengerService.buttonClicked(true);
 	}
 
 	public closeThumbnailSelection(event) {
 		this.thumbnailListVisible = event;
-		this.messengerService.buttonClicked(true);
 	}
 
 	public changeThumbnail(event) {
