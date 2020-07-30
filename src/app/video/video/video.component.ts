@@ -177,6 +177,9 @@ export class VideoComponent extends AbstractComponent<Video> {
 	}
 
 	public checkButtonStatus() {
+		if (this.editModeId) {
+			return false;
+		}
 		return !(this.videoFile && this.imageFile);
 	}
 }

@@ -46,6 +46,11 @@
 							margin-right: 20px;
 							margin-top: 30px;
 							text-align: center;
+
+							.disabled {
+								color: var(--light-grey-secondary);
+								pointer-events: none;
+							}
 						}
 
 						.custom-thumbnail {
