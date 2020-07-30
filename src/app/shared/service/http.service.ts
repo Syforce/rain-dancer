@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
+import { take } from 'rxjs/operators';
 
 const BASE_URL: string = `${environment.http}/api`;
 const CONVERT_URL: string = `${environment.convert}/api`;

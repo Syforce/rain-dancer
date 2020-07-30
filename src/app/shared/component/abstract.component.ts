@@ -46,10 +46,14 @@ export abstract class AbstractComponent<T extends AbstractModel> implements OnIn
 		});
 	}
 
-	protected update() {
-		this.service.update(this.item).subscribe((item: T) => {
-			this.item = item;
+	protected update(): any {
+		const observable = this.service.update(this.item);
+
+		observable.subscribe((item: T) => {
+			this.setItem(item);
 		});
+
+		return observable;
 	}
 
 	protected setItem(item: T) {
