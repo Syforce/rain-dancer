@@ -31,8 +31,8 @@ export class TalentComponent extends AbstractComponent<Talent> {
 
 	public Editor = ClassicEditor;
 
-	private startCroppingListingImage: number = -1;
-	private startCroppingProfileImage: number = -1;
+	private startCroppingListingImage: number = 0;
+	private startCroppingProfileImage: number = 0;
 	private listingURL: boolean = true;
 	private profileURL: boolean = true;
 
@@ -100,8 +100,8 @@ export class TalentComponent extends AbstractComponent<Talent> {
 	}
 
 	public save() {
-		const profilePromise = this.getImageFile(this.profileCroppedImage, 'profileCropped');
-		const listingPromise = this.getImageFile(this.listingCroppedImage, 'listingCropped');
+		const profilePromise = this.getImageFile(this.profileCroppedImage, 'profileCropped.jpg');
+		const listingPromise = this.getImageFile(this.listingCroppedImage, 'listingCropped.jpg');
 
 		Promise.all([profilePromise, listingPromise]).then((values) => {
 			const profile: FormFile = {
@@ -189,7 +189,6 @@ export class TalentComponent extends AbstractComponent<Talent> {
 		});
 	}
 
-
 	public async update() {
 		let listingImages: Array<any> = new Array<any>();
 		let profileImages: Array<any> = new Array<any>();
@@ -247,5 +246,10 @@ export class TalentComponent extends AbstractComponent<Talent> {
 	public checkButtonStatus() {
 		return !(this.listingImage && this.profileImage);
 	}
+
+	public togglePublished(media) {
+		media.published = !media.published;
+	}
+
 
 }

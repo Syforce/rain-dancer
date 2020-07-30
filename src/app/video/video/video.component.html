@@ -50,7 +50,7 @@
 			</div>
 		</div>
 		<div class="row footer">
-			<button type="button" class="green" (click)="onSaveClick()">Save</button>
+			<button [disabled]="checkButtonStatus()" type="button" class="green" (click)="onSaveClick()">Save</button>
 		</div>
 	</form>
 </div>

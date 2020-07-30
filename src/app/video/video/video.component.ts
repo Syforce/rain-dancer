@@ -68,14 +68,17 @@ export class VideoComponent extends AbstractComponent<Video> {
 		super.ngOnInit();
 
 		this.talentService.getAll().subscribe((data: ResponseData) => {
-			this.comboBoxConfig = {
-				targetData: this.item,
-				targetKey: 'talent'
-			};
 			this.talents = data.list;
-			console.log('thmb: ', this.item.selectedThumbnail)
 			this.thumbnailSrc = this.item.selectedThumbnail;
+			this.imageURL = this.item.selectedThumbnail;
 		});
+	}
+
+	protected initCreate() {
+		this.comboBoxConfig = {
+			targetData: this.item,
+			targetKey: 'talent'
+		};
 	}
 
 	public onVideoFileChange(event) {
@@ -98,8 +101,6 @@ export class VideoComponent extends AbstractComponent<Video> {
 			key: 'thumbnail'
 		};
 		
-		console.log('file: ', file);
-		console.log('thumbnail: ', thumbnail);
 		this.service.createForm(this.item, [file, thumbnail], true).subscribe((data) => {
 		});
 	}
@@ -120,6 +121,7 @@ export class VideoComponent extends AbstractComponent<Video> {
 	
 		});
 	}
+
 
 	public showThumbnailSelection() {
 		this.thumbnailListVisible = true;
@@ -164,10 +166,17 @@ export class VideoComponent extends AbstractComponent<Video> {
 
 	protected getById(id: string) {
 		const observable: Observable<Video> = super.getById(id);
-		
 		observable.subscribe((item: Video) => {
+			this.comboBoxConfig = {
+				targetData: this.item,
+				targetKey: 'talent'
+			};
 		});
 
 		return observable;
+	}
+
+	public checkButtonStatus() {
+		return !(this.videoFile && this.imageFile);
 	}
 }
