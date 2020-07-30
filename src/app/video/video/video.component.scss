@@ -1,5 +1,104 @@
 :host {
 	.video {
+		font-family: "RadikalW01-Thin";
+		font-weight: 600; 
+		color: var(--dark-blue-primary);
+		position: relative;
+
+		.row {
+
+			margin-bottom: 60px;
+
+			.column {
+
+				.item {
+					margin-bottom: 15px;
+
+					input {
+						padding: 7px;
+						outline: none;
+						border: none;
+						border: 1px solid var(--light-grey-secondary);
+						border-radius: 3px;
+					}
+
+					combo-box {
+						border: 1px solid var(--light-grey-secondary);
+					}
+				}
+
+				
+				.thumbnail-selection-section {
+					display: flex;
+					flex-direction: column;
+
+					.thumbnail-selection-box {
+						display: flex;
+
+						img {
+							height: 100px;
+							margin-right: 20px;
+						}
+
+						.default-thumbnail {
+							display: flex;
+							flex-direction: column;
+							margin-right: 20px;
+							margin-top: 30px;
+							text-align: center;
+
+							.disabled {
+								color: var(--light-grey-secondary);
+								pointer-events: none;
+							}
+						}
+
+						.custom-thumbnail {
+							display: flex;
+							flex-direction: column;
+							margin-right: 10px;
+
+							.input-file {
+								margin: auto;
+								width: 0.1px;
+								height: 0.1px;
+								opacity: 0;
+								overflow: hidden;
+								position: absolute;
+								z-index: -1;
+							}
+
+							div {
+								margin-top: 30px;
+								display: flex;
+								flex-direction: column;
+								text-align: center;
+							}
+						}
+					}
+				}
+				
+			}
+		}
+
+		.footer {
+
+			button {
+				margin: auto;
+				width: 135px;
+			}
+		}
+
+		i {
+			font-family: 'FontAwesome';
+            font-style: normal;
+			cursor: pointer;
+			
+			&:hover {
+				color: var(--dark-blue-secondary);
+			}
+		}
+
 		video {
 			max-width: 100%;
 		}

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import * as ClassicEditor from 'asdasd123qwe';
+import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'app-root',
@@ -8,8 +9,7 @@ import * as ClassicEditor from 'asdasd123qwe';
 	styleUrls: ['./app.component.scss']
 })
 export class App {
-	public Editor = ClassicEditor;
-
+    public Editor = ClassicEditor;
 	ngOnInit() {
 		ClassicEditor
             .create(document.querySelector('#editor'), {

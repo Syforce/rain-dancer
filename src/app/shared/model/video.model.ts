@@ -3,4 +3,6 @@ import { Talent } from './talent.model';
 
 export interface Video extends AbstractModel {
 	path?: string;
+	selectedThumbnail?: string;
+	thumbnails?: Array<string>;
 }
