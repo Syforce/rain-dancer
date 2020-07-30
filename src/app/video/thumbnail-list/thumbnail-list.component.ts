@@ -8,20 +8,20 @@ import { Thumbnail } from '@shared/model/thumbnail.model';
 	styleUrls: ['./thumbnail-list.component.scss']
 })
 export class ThumbnailListComponent implements OnInit {
-	@Input() thumbnailsList: Array<string>;
-
+	@Input() 
+	public thumbnailsList: Array<string>;
 	@Output()
-	public notifyClose: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+	public close: EventEmitter<boolean> = new EventEmitter<boolean>();
 	@Output()
-	public notifyThumbnail: EventEmitter<any> = new EventEmitter<any>();
+	public sendThumbnail: EventEmitter<any> = new EventEmitter<any>();
+	public thumbnailsListWithSelect: Array<Thumbnail> = new Array<Thumbnail>();
+
 
 	private newThumbnailURL: any = '';
-	public thumbnailsListWithSelect: Array<Thumbnail> = new Array<Thumbnail>();
 	private selectedThumbnail: Thumbnail = {url: '', selected: false};
 
 	public exitThumbnailSelection() {
-		this.notifyClose.emit(false);
+		this.close.emit(false);
 	}
 
 	public selectThumbnail(item) {
@@ -31,7 +31,7 @@ export class ThumbnailListComponent implements OnInit {
 	}
 
 	public saveThumbnailSelection() {
-		this.notifyThumbnail.emit(this.selectedThumbnail.url);
+		this.sendThumbnail.emit(this.selectedThumbnail.url);
 		this.exitThumbnailSelection();
 	}
 

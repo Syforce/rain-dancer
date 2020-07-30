@@ -44,7 +44,6 @@ import { ROUTES } from './app.router';
 
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { QueueListComponent } from './queue/queue-list/queue-list.component';
-import { MessengerService } from '@shared/service/message.service';
 
 @NgModule({
 	declarations: [

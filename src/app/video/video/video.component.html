@@ -38,7 +38,7 @@
 
 						<div class="custom-thumbnail">
 							<input class="input-file" id="file" type="file" name="file" (change)="onImageFileChange($event)" onchange="document.getElementById('thumbnail-preview').src = window.URL.createObjectURL(this.files[0])">
-							<thumbnail-list (notifyThumbnail)="changeThumbnail($event)" (notifyClose)="closeThumbnailSelection($event)" *ngIf="item.thumbnails&&thumbnailListVisible" [thumbnailsList]="item.thumbnails"></thumbnail-list>
+							<thumbnail-list (sendThumbnail)="changeThumbnail($event)" (close)="closeThumbnailSelection($event)" *ngIf="item.thumbnails&&thumbnailListVisible" [thumbnailsList]="item.thumbnails"></thumbnail-list>
 							<div>
 								<label for="file"><i class="fas fa-upload fa-2x"></i></label>
 								<span>Upload</span>
