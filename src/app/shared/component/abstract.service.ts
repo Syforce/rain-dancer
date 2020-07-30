@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { take, share } from 'rxjs/operators';
 
 import { HttpService } from '@shared/service/http.service';
 
@@ -24,7 +24,7 @@ export abstract class AbstractService<T extends AbstractModel> {
 	}
 
 	public getById(id: string): Observable<T> {
-		return this.httpService.get(`/${this.baseUrl}/${id}`).pipe(take(1));
+		return this.httpService.get(`/${this.baseUrl}/${id}`).pipe(take(1)).pipe(share());
 	}
 
 	public create(item: T): Observable<T> {
@@ -36,6 +36,7 @@ export abstract class AbstractService<T extends AbstractModel> {
 
 		files.forEach((formFile: FormFile) => {
 			formData.append(formFile.key, formFile.file, formFile.file.name);
+			console.log(formFile);
 		});
 
 		Object.keys(item).forEach(key => {
@@ -67,7 +68,7 @@ export abstract class AbstractService<T extends AbstractModel> {
 	}
 
 	public update(item: T): Observable<T> {
-		return this.httpService.put(`/${this.baseUrl}/${item._id}`, item).pipe(take(1));
+		return this.httpService.put(`/${this.baseUrl}/${item._id}`, item).pipe(take(1)).pipe(share());
 	}
 
 	public getPaginated(currentPage: number, itemsPerPage: number, sortBy?: string, sortOrder?: number): Observable<ResponseData> {

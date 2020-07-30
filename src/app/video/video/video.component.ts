@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { TalentService } from '@talent/talent.service';
@@ -60,12 +60,15 @@ export class VideoComponent extends AbstractComponent<Video> {
 		super.ngOnInit();
 
 		this.talentService.getAll().subscribe((data: ResponseData) => {
-			this.comboBoxConfig = {
-				targetData: this.item,
-				targetKey: 'talent'
-			};
 			this.talents = data.list;
 		});
+	}
+
+	protected initCreate() {
+		this.comboBoxConfig = {
+			targetData: this.item,
+			targetKey: 'talent'
+		};
 	}
 
 	public onVideoFileChange(event) {
@@ -123,8 +126,24 @@ export class VideoComponent extends AbstractComponent<Video> {
 	protected getById(id: string) {
 		const observable: Observable<Video> = super.getById(id);
 		
-		observable.subscribe((item: Video) => {
-			console.log(this.videoPlayer);
+		observable.subscribe(() => {
+			this.comboBoxConfig = {
+				targetData: this.item,
+				targetKey: 'talent'
+			};
+		});
+
+		return observable;
+	}
+
+	protected update() {
+		const observable: Observable<Video> = super.update();
+
+		observable.subscribe(() => {
+			this.comboBoxConfig = {
+				targetData: this.item,
+				targetKey: 'talent'
+			}
 		});
 
 		return observable;
