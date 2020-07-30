@@ -28,6 +28,7 @@ export class VideoComponent extends AbstractComponent<Video> {
 	private videoFile: File;
 	private imageFile: File;
 	private imageURL: string;
+	private thumbnailIsURL: boolean = true;
 
 	public talents: Array<Talent> = new Array<Talent>();
 	public comboBoxConfig: ComboBoxConfig;
@@ -86,6 +87,7 @@ export class VideoComponent extends AbstractComponent<Video> {
 
 	public onImageFileChange(event) {
 		this.imageFile = event.target.files[0];
+		this.thumbnailIsURL = false;
 	}
 
 	protected save() {
@@ -108,13 +110,15 @@ export class VideoComponent extends AbstractComponent<Video> {
 
 		const thumbnailImage: FormFile = {
 			file: this.imageFile,
-			key: 'thumbnailImage'
+			key: 'thumbnailImageFile'
 		};
 
-		this.item.selectedThumbnail = this.imageURL;
+		if (this.thumbnailIsURL) {
+			this.item.selectedThumbnail = this.imageURL;
+		}
 		delete this.item.thumbnails;
 
-		this.service.updateForm(this.item, [], false).subscribe((data) => {
+		this.service.updateForm(this.item, [thumbnailImage], false).subscribe((data) => {
 	
 		});
 	}
@@ -132,6 +136,7 @@ export class VideoComponent extends AbstractComponent<Video> {
 	public changeThumbnail(event) {
 		this.thumbnailSrc = event;
 		this.imageURL = event;
+		this.thumbnailIsURL = true;
 	}
 
 

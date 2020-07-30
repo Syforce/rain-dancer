@@ -29,7 +29,7 @@
 				<div class="item thumbnail-selection-section">
 					<label>Thumbnail</label>
 					<div class="thumbnail-selection-box">
-						<img src="{{thumbnailSrc}}" alt="">
+						<img id="thumbnail-preview" src="{{thumbnailSrc}}" alt="">
 
 						<div class="default-thumbnail">
 							<i (click)="showThumbnailSelection()" class="fas fa-camera fa-2x"></i>
@@ -37,7 +37,7 @@
 						</div>
 
 						<div class="custom-thumbnail">
-							<input class="input-file" id="file" type="file" name="file" (change)="onImageFileChange($event)">
+							<input class="input-file" id="file" type="file" name="file" (change)="onImageFileChange($event)" onchange="document.getElementById('thumbnail-preview').src = window.URL.createObjectURL(this.files[0])">
 							<thumbnail-list (notifyThumbnail)="changeThumbnail($event)" (notifyClose)="closeThumbnailSelection($event)" *ngIf="item.thumbnails&&thumbnailListVisible" [thumbnailsList]="item.thumbnails"></thumbnail-list>
 							<div>
 								<label for="file"><i class="fas fa-upload fa-2x"></i></label>

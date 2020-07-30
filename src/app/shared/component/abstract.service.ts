@@ -49,12 +49,15 @@ export abstract class AbstractService<T extends AbstractModel> {
 	public updateForm(item: T, files: Array<FormFile>, convert: boolean = false) {
 		const formData: FormData = new FormData();
 
+		console.log(files);
 		files.forEach((formFile: FormFile) => {
-			if (formFile.file.name) {
-				formData.append(formFile.key, formFile.file, formFile.file.name);
-			} else {
-				formData.append(`${formFile.key}`, formFile.file);
-			}	
+			if (formFile.file) {
+				if (formFile.file.name) {
+					formData.append(formFile.key, formFile.file, formFile.file.name);
+				} else {
+					formData.append(`${formFile.key}`, formFile.file);
+				}	
+			}
 		});
 
 		Object.keys(item).forEach(key => {
