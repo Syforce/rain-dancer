@@ -63,7 +63,8 @@ export class VideoComponent extends AbstractComponent<Video> {
 			this.comboBoxConfig = {
 				targetData: this.item,
 				targetKey: 'talent'
-			}
+			};
+
 			this.talents = data.list;
 		});
 	}
