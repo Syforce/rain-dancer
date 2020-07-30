@@ -28,9 +28,13 @@ export abstract class AbstractComponent<T extends AbstractModel> implements OnIn
 			if (id) {
 				this.editModeId = id;
 				this.getById(id);
+			} else {
+				this.initCreate();
 			}
 		});
 	}
+
+	protected initCreate() {}
 
 	public onSaveClick() {
 		if (this.editModeId) {

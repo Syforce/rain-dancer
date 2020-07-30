@@ -60,13 +60,15 @@ export class VideoComponent extends AbstractComponent<Video> {
 		super.ngOnInit();
 
 		this.talentService.getAll().subscribe((data: ResponseData) => {
-			this.comboBoxConfig = {
-				targetData: this.item,
-				targetKey: 'talent'
-			};
-
 			this.talents = data.list;
 		});
+	}
+
+	protected initCreate() {
+		this.comboBoxConfig = {
+			targetData: this.item,
+			targetKey: 'talent'
+		};
 	}
 
 	public onVideoFileChange(event) {
