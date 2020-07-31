@@ -4,6 +4,7 @@ import { HttpService } from '@shared/service/http.service';
 import { AbstractService } from '@shared/component/abstract.service';
 
 import { Media } from '@shared/model/media.model';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class MediaService extends AbstractService<Media> {
@@ -17,5 +18,9 @@ export class MediaService extends AbstractService<Media> {
 
 	public updateMedias(medias: Array<Media>) {
 		return this.httpService.put(`/${this.baseUrl}s`, medias);
+	}
+
+	public getAllMedias() {
+		return this.httpService.get(`/${this.baseUrl}s`);
 	}
 }

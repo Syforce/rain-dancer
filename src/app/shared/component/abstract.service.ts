@@ -83,7 +83,7 @@ export abstract class AbstractService<T extends AbstractModel> {
 			params = params.set('sortBy', sortBy);
 			params = params.set('sortOrder', sortOrder.toString());
 		}	
-
+		console.log(`/${this.baseUrl}s`, this.convert, params);
 		return this.httpService.get(`/${this.baseUrl}s`, this.convert, params).pipe(take(1));
 	}
 }

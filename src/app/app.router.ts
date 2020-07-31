@@ -14,6 +14,8 @@ import { VideoComponent } from '@video/video/video.component';
 
 import { QueueDashboardComponent } from './queue/queue-dashboard.component';
 import { QueueListComponent } from './queue/queue-list/queue-list.component';
+import { WorkDashboardComponent } from './work/work-dashboard.component';
+import { WorkListComponent } from './work/work-list/work-list.component';
 
 export const ROUTES: Routes = [{
 	path: 'talent',
@@ -60,5 +62,12 @@ export const ROUTES: Routes = [{
     children: [{
         path: '',
         component: QueueListComponent
+    }]
+}, {
+    path: 'media',
+    component: WorkDashboardComponent,
+    children: [{
+        path: '',
+        component: WorkListComponent
     }]
 }];

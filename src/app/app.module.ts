@@ -46,6 +46,9 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { QueueListComponent } from './queue/queue-list/queue-list.component';
 
 import { QuillModule } from 'ngx-quill'
+import { WorkDashboardComponent } from './work/work-dashboard.component';
+import { WorkListComponent } from './work/work-list/work-list.component';
+import { WorkService } from './work/work.service';
 
 @NgModule({
 	declarations: [
@@ -71,7 +74,10 @@ import { QuillModule } from 'ngx-quill'
 
 		TableComponent,
 		TableHeaderComponent,
-		TableFooterComponent
+		TableFooterComponent,
+
+		WorkDashboardComponent,
+		WorkListComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -92,6 +98,7 @@ import { QuillModule } from 'ngx-quill'
 		VideoService,
 		MediaService,
 		QueueService,
+		WorkService,
 	],
 	bootstrap: [App]
 })
