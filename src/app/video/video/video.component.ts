@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, EventEmitter, Output } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { TalentService } from '@talent/talent.service';
@@ -25,6 +25,8 @@ export class VideoComponent extends AbstractComponent<Video> {
 	private talentService: TalentService;
 	private videoFile: File;
 	private imageFile: File;
+	private imageURL: string;
+	private thumbnailIsURL: boolean = true;
 
 	public talents: Array<Talent> = new Array<Talent>();
 	public comboBoxConfig: ComboBoxConfig;
@@ -50,6 +52,12 @@ export class VideoComponent extends AbstractComponent<Video> {
 
 	@ViewChild('videoPlayer', {static: false}) videoPlayer: ElementRef;
 
+	public thumbnailListVisible: boolean = false;
+	public thumbnailSrc: string = "";
+
+	@Output()
+	public notifyOverlay: EventEmitter<boolean> = new EventEmitter<boolean>();
+
 	constructor(service: VideoService, activatedRoute: ActivatedRoute, router: Router, talentService: TalentService) {
 		super(service, activatedRoute, router);
 
@@ -61,6 +69,8 @@ export class VideoComponent extends AbstractComponent<Video> {
 
 		this.talentService.getAll().subscribe((data: ResponseData) => {
 			this.talents = data.list;
+			this.thumbnailSrc = this.item.selectedThumbnail;
+			this.imageURL = this.item.selectedThumbnail;
 		});
 	}
 
@@ -77,25 +87,56 @@ export class VideoComponent extends AbstractComponent<Video> {
 
 	public onImageFileChange(event) {
 		this.imageFile = event.target.files[0];
+		this.thumbnailIsURL = false;
 	}
 
 	protected save() {
-		const video: FormFile = {
+		const file: FormFile = {
 			file: this.videoFile,
 			key: 'file'
 		};
 
-		const image: FormFile = {
+		const thumbnail: FormFile = {
 			file: this.imageFile,
 			key: 'thumbnail'
 		};
-
-		console.log(video, image);
-
-		this.service.createForm(this.item, [video, image], true).subscribe((data) => {
-			console.log(data);
+		
+		this.service.createForm(this.item, [file, thumbnail], true).subscribe((data) => {
 		});
 	}
+
+	protected update() {
+
+		const thumbnailImage: FormFile = {
+			file: this.imageFile,
+			key: 'thumbnailImageFile'
+		};
+
+		if (this.thumbnailIsURL) {
+			this.item.selectedThumbnail = this.imageURL;
+		}
+		delete this.item.thumbnails;
+
+		this.service.updateForm(this.item, [thumbnailImage], false).subscribe((data) => {
+	
+		});
+	}
+
+
+	public showThumbnailSelection() {
+		this.thumbnailListVisible = true;
+	}
+
+	public closeThumbnailSelection(event) {
+		this.thumbnailListVisible = event;
+	}
+
+	public changeThumbnail(event) {
+		this.thumbnailSrc = event;
+		this.imageURL = event;
+		this.thumbnailIsURL = true;
+	}
+
 
 	public onDataLoaded(event) {
 		const duration = event.target.duration;
@@ -125,8 +166,7 @@ export class VideoComponent extends AbstractComponent<Video> {
 
 	protected getById(id: string) {
 		const observable: Observable<Video> = super.getById(id);
-		
-		observable.subscribe(() => {
+		observable.subscribe((item: Video) => {
 			this.comboBoxConfig = {
 				targetData: this.item,
 				targetKey: 'talent'
@@ -136,16 +176,10 @@ export class VideoComponent extends AbstractComponent<Video> {
 		return observable;
 	}
 
-	protected update() {
-		const observable: Observable<Video> = super.update();
-
-		observable.subscribe(() => {
-			this.comboBoxConfig = {
-				targetData: this.item,
-				targetKey: 'talent'
-			}
-		});
-
-		return observable;
+	public checkButtonStatus() {
+		if (this.editModeId) {
+			return false;
+		}
+		return !(this.videoFile && this.imageFile);
 	}
 }

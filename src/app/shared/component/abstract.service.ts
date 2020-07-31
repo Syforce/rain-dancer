@@ -33,7 +33,7 @@ export abstract class AbstractService<T extends AbstractModel> {
 
 	public createForm(item: T, files: Array<FormFile>, convert: boolean = false) {
 		const formData: FormData = new FormData();
-
+		
 		files.forEach((formFile: FormFile) => {
 			formData.append(formFile.key, formFile.file, formFile.file.name);
 		});
@@ -49,18 +49,21 @@ export abstract class AbstractService<T extends AbstractModel> {
 		const formData: FormData = new FormData();
 
 		files.forEach((formFile: FormFile) => {
-			if (formFile.file.name) {
-				formData.append(formFile.key, formFile.file, formFile.file.name);
-			} else {
-				formData.append(`${formFile.key}`, formFile.file);
-			}	
+			if (formFile.file) {
+				if (formFile.file.name) {
+					formData.append(formFile.key, formFile.file, formFile.file.name);
+				} else {
+					formData.append(`${formFile.key}`, formFile.file);
+				}	
+			}
 		});
 
 		Object.keys(item).forEach(key => {
+			console.log('abstarct: ', key);
 			if (key === 'medias') {
 				item[key] = JSON.stringify(item[key]);
 			}
-			formData.append(key, item[key])
+			formData.append(key,  item[key]);
 		});
 		return this.httpService.post(`/${this.baseUrl}/${item._id}`, formData, convert).pipe(take(1));
 	}

@@ -1,5 +1,21 @@
 <div class="thumbnails-list">
-    <div *ngFor="let item of thumbnailsList" class="image">
-        <img src={{item}} alt="">
+    <div class="overlay"></div>
+
+    <div class="content">
+        <div class="header">
+            <span>Thumbnail selection</span>
+            <i class="fas fa-times"></i>
+        </div>
+    
+        <div class="image-list">
+            <div *ngFor="let item of thumbnailsListWithSelect" class="image" [ngClass]="{'selected':item.selected === true}">
+                <img src={{item.url}} alt="" (click)="selectThumbnail(item)">
+            </div>
+        </div>
+        
+        <div class="footer">
+            <button (click)="exitThumbnailSelection()" class="close-btn">Close</button>
+            <button (click)="saveThumbnailSelection()"class="save-btn">Save</button>
+        </div>
     </div>
 </div>
