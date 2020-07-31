@@ -39,6 +39,7 @@ export abstract class AbstractService<T extends AbstractModel> {
 		});
 
 		Object.keys(item).forEach(key => {
+			console.log(key, ': ', item[key]);
 			formData.append(key, item[key])
 		});
 

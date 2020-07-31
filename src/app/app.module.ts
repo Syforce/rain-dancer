@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { ImageCropperModule } from 'ngx-image-cropper';
@@ -45,6 +45,8 @@ import { ROUTES } from './app.router';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { QueueListComponent } from './queue/queue-list/queue-list.component';
 
+import { QuillModule } from 'ngx-quill'
+
 @NgModule({
 	declarations: [
 		App,
@@ -79,7 +81,9 @@ import { QueueListComponent } from './queue/queue-list/queue-list.component';
 		FormsModule,
 		ImageCropperModule,
 		CKEditorModule,
-		Ng5SliderModule
+		Ng5SliderModule,
+		QuillModule,
+		QuillModule.forRoot(),
 	],
 	providers: [
 		HttpService,

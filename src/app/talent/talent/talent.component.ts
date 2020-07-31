@@ -11,6 +11,8 @@ import { FormFile } from '@shared/service/model/form-file.model';
 
 import * as ClassicEditor from 'asdasd123qwe';
 import { ThrowStmt } from '@angular/compiler';
+import { ChangeEvent } from '@ckeditor/ckeditor5-angular';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
 	selector: 'talent',
@@ -22,6 +24,12 @@ export class TalentComponent extends AbstractComponent<Talent> {
 	private listingFile: File;
 	private profileFile: File;
 
+	private startCroppingListingImage: number = 0;
+	private startCroppingProfileImage: number = 0;
+	private listingURL: boolean = true;
+	private profileURL: boolean = true;
+
+
 	public listingImage: any = '';
 	public profileImage: any = '';
 	public listingCroppedImage: any = '';
@@ -30,15 +38,8 @@ export class TalentComponent extends AbstractComponent<Talent> {
 	public originalMedias: Array<Media> = new Array<Media>();
 
 	public Editor = ClassicEditor;
-
-	private startCroppingListingImage: number = 0;
-	private startCroppingProfileImage: number = 0;
-	private listingURL: boolean = true;
-	private profileURL: boolean = true;
-
 	public listingImageFromURL: any = '';
 	public profileImageFromURL: any = '';
-
 
 	constructor(service: TalentService, activatedRoute: ActivatedRoute, router: Router, mediaService: MediaService) {
 		super(service, activatedRoute, router)
@@ -250,6 +251,4 @@ export class TalentComponent extends AbstractComponent<Talent> {
 	public togglePublished(media) {
 		media.published = !media.published;
 	}
-
-
 }

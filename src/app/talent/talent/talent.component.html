@@ -69,10 +69,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row editor">
 			<div class="item editor">
-				<label>About</label>
-				<ckeditor [editor]="Editor" data="<p>Tell us something about your work!</p>"></ckeditor>
+				<label>About</label>	
+				<quill-editor name="editor" [(ngModel)]="item.about"></quill-editor>
 			</div>
 		</div>
 		<div class="media" *ngIf="medias.length">
