@@ -9,11 +9,6 @@ import { Talent } from '@shared/model/talent.model';
 import { Media } from '@shared/model/media.model';
 import { FormFile } from '@shared/service/model/form-file.model';
 
-import * as ClassicEditor from 'asdasd123qwe';
-import { ThrowStmt } from '@angular/compiler';
-import { ChangeEvent } from '@ckeditor/ckeditor5-angular';
-import { FormGroup, FormControl } from '@angular/forms';
-
 @Component({
 	selector: 'talent',
 	templateUrl: './talent.component.html',
@@ -37,7 +32,6 @@ export class TalentComponent extends AbstractComponent<Talent> {
 	public medias: Array<Media> = new Array<Media>();
 	public originalMedias: Array<Media> = new Array<Media>();
 
-	public Editor = ClassicEditor;
 	public listingImageFromURL: any = '';
 	public profileImageFromURL: any = '';
 
