@@ -10,7 +10,7 @@ import { Media } from '@shared/model/media.model';
 import { FormFile } from '@shared/service/model/form-file.model';
 
 import * as ClassicEditor from 'asdasd123qwe';
-import { ThrowStmt } from '@angular/compiler';
+import { CropperPosition, Dimensions } from 'ngx-image-cropper';
 
 @Component({
 	selector: 'talent',
@@ -39,6 +39,21 @@ export class TalentComponent extends AbstractComponent<Talent> {
 	public listingImageFromURL: any = '';
 	public profileImageFromURL: any = '';
 
+	public listingCropperConfig: CropperPosition = {
+		x1: 0,
+		y1: 0,
+		x2: 1,
+		y2: 1
+	};
+	public profileCropperConfig: CropperPosition = {
+		x1: 0,
+		y1: 0,
+		x2: 1,
+		y2: 1
+	};
+
+	public talent: Talent;
+
 
 	constructor(service: TalentService, activatedRoute: ActivatedRoute, router: Router, mediaService: MediaService) {
 		super(service, activatedRoute, router)
@@ -56,11 +71,33 @@ export class TalentComponent extends AbstractComponent<Talent> {
 
 				this.listingImageFromURL = JSON.parse(JSON.stringify(talent.listingImage));
 				this.profileImageFromURL = JSON.parse(JSON.stringify(talent.profileImage));
-			})
+
+				// this.listingCropperConfig = JSON.parse(JSON.stringify(talent.listingCropperConfig));
+				// this.profileCropperConfig = JSON.parse(JSON.stringify(talent.profileCropperConfig));
+
+				Object.assign(this.listingCropperConfig, talent.listingCropperConfig);
+				Object.assign(this.profileCropperConfig, talent.profileCropperConfig);
+				console.log(this.listingCropperConfig);
+				console.log(this.profileCropperConfig);
+			});
 			this.mediaService.getMediaByTalent(this.editModeId).subscribe((medias: Array<Media>) => {
 				this.medias = medias;
 				this.originalMedias = JSON.parse(JSON.stringify(medias));
 			});
+		}
+	}
+
+	public onCropperReady(dimensions: Dimensions) {
+		if (this.editModeId != null) {
+			// this.listingCropperConfig = {
+			// 	x1: this.listingCropperConfig.x1,
+			// 	y1: this.listingCropperConfig.y1,
+			// 	x2: this.listingCropperConfig.x2,
+			// 	y2: this.listingCropperConfig.y2
+			// };
+			// this.profileCropperConfig = JSON.parse(JSON.stringify(this.profileCropperConfig));
+			console.log(this.listingCropperConfig);
+			console.log(this.profileCropperConfig);
 		}
 	}
 
@@ -79,12 +116,14 @@ export class TalentComponent extends AbstractComponent<Talent> {
 	public onListingCropped(event) {
 		if (this.startCroppingListingImage > 0) {
 			this.listingCroppedImage = event.base64;
+			//this.item.listingCropperConfig = event.cropperPosition;
 		}	
 	}
 
 	public onProfileCropped(event) {
 		if (this.startCroppingProfileImage > 0) {
 			this.profileCroppedImage = event.base64;
+			//this.item.profileCropperConfig = event.cropperPosition;
 		}
 	}
 
@@ -217,7 +256,7 @@ export class TalentComponent extends AbstractComponent<Talent> {
 					await this.takeCroppedFromURL(this.listingCroppedImage, 'listing', listingImages);
 				}
 			}
-	
+
 			if (!this.profileURL) {
 				await this.takeImageAndCroppedImageFromPC(this.profileFile, this.profileCroppedImage, 'profile', profileImages);
 			} else {

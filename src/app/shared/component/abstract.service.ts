@@ -36,16 +36,14 @@ export abstract class AbstractService<T extends AbstractModel> {
 
 		files.forEach((formFile: FormFile) => {
 			formData.append(formFile.key, formFile.file, formFile.file.name);
-			console.log(formFile);
 		});
 
 		Object.keys(item).forEach(key => {
-			formData.append(key, item[key])
+			formData.append(key, JSON.stringify(item[key]))
 		});
 
 		return this.httpService.post(`/${this.baseUrl}`, formData, convert).pipe(take(1));
 	}
-
 
 	public updateForm(item: T, files: Array<FormFile>, convert: boolean = false) {
 		const formData: FormData = new FormData();

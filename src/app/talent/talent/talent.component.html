@@ -55,7 +55,7 @@
 				<div class="upload-container">
 					<label for="file-listing"><i class="fas fa-upload"></i>Upload Listing Image</label>
 					<input class="input-file" type="file" id="file-listing" name="listingImage" (change)="onListingChange($event)">
-					<image-cropper (startCropImage)='onListingCropperChange()'  [imageURL]="listingImageFromURL" [imageChangedEvent]="listingImage" format="jpeg" (imageCropped)="onListingCropped($event)"></image-cropper>
+					<image-cropper [cropper]="listingCropperConfig" (cropperReady)="onCropperReady($event)" (startCropImage)='onListingCropperChange()'  [imageURL]="listingImageFromURL" [imageChangedEvent]="listingImage" format="jpeg" (imageCropped)="onListingCropped($event)"></image-cropper>
 				</div>
 			</div>
 		</div>
@@ -65,7 +65,7 @@
 				<div class="upload-container">
 					<label for="file-profile"><i class="fas fa-upload"></i>Upload Profile Image</label>
 					<input class="input-file" type="file" id="file-profile" name="profileImage" (change)="onProfileChange($event)">
-					<image-cropper (startCropImage)='onProfileCropperChange()' [imageURL]="profileImageFromURL" [imageChangedEvent]="profileImage" format="jpeg" (imageCropped)="onProfileCropped($event)"></image-cropper>
+					<image-cropper [cropper]="profileCropperConfig" (cropperReady)="onCropperReady($event)" (startCropImage)='onProfileCropperChange()' [imageURL]="profileImageFromURL" [imageChangedEvent]="profileImage" format="jpeg" (imageCropped)="onProfileCropped($event)"></image-cropper>
 				</div>
 			</div>
 		</div>

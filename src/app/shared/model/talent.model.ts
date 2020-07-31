@@ -1,4 +1,5 @@
 import { AbstractModel } from '@shared/component/abstract.model';
+import { CropperPosition } from 'ngx-image-cropper';
 
 export interface Talent extends AbstractModel {
 	title?: string;
@@ -13,4 +14,6 @@ export interface Talent extends AbstractModel {
 	profileImage?: string;
 	listingCroppedImage?: string;
 	profileCroppedImage?: string;
+	listingCropperConfig?: CropperPosition;
+	profileCropperConfig?: CropperPosition;
 }
