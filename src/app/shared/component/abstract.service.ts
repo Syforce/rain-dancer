@@ -39,13 +39,14 @@ export abstract class AbstractService<T extends AbstractModel> {
 		});
 
 		Object.keys(item).forEach(key => {
-			console.log(key, ': ', item[key]);
-			formData.append(key, item[key])
+			if (key === 'listingCropperConfig' || key === 'profileCropperConfig') {
+				item[key] = JSON.stringify(item[key]);
+			}
+			formData.append(key, item[key]);
 		});
 
 		return this.httpService.post(`/${this.baseUrl}`, formData, convert).pipe(take(1));
 	}
-
 
 	public updateForm(item: T, files: Array<FormFile>, convert: boolean = false) {
 		const formData: FormData = new FormData();
@@ -61,8 +62,7 @@ export abstract class AbstractService<T extends AbstractModel> {
 		});
 
 		Object.keys(item).forEach(key => {
-			console.log('abstarct: ', key);
-			if (key === 'medias') {
+			if (key === 'medias' || key === 'listingCropperConfig' || key === 'profileCropperConfig') {
 				item[key] = JSON.stringify(item[key]);
 			}
 			formData.append(key,  item[key]);

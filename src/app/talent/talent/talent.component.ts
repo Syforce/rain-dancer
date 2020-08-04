@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { TalentService } from '@talent/talent.service';
@@ -8,6 +8,9 @@ import { AbstractComponent } from '@shared/component/abstract.component';
 import { Talent } from '@shared/model/talent.model';
 import { Media } from '@shared/model/media.model';
 import { FormFile } from '@shared/service/model/form-file.model';
+
+import * as ClassicEditor from 'asdasd123qwe';
+import { CropperPosition, Dimensions } from 'ngx-image-cropper';
 
 @Component({
 	selector: 'talent',
@@ -32,8 +35,29 @@ export class TalentComponent extends AbstractComponent<Talent> {
 	public medias: Array<Media> = new Array<Media>();
 	public originalMedias: Array<Media> = new Array<Media>();
 
+	public Editor = ClassicEditor;
+
 	public listingImageFromURL: any = '';
 	public profileImageFromURL: any = '';
+
+	public listingCropperConfig: CropperPosition = {
+		x1: 0,
+		y1: 0,
+		x2: 1,
+		y2: 1
+	};
+	public profileCropperConfig: CropperPosition = {
+		x1: 0,
+		y1: 0,
+		x2: 1,
+		y2: 1
+	};
+
+	@ViewChild('listingCropper', {static: true}) listingCropper;
+	@ViewChild('profileCropper', {static: true}) profileCropper;
+
+	public talent: Talent;
+
 
 	constructor(service: TalentService, activatedRoute: ActivatedRoute, router: Router, mediaService: MediaService) {
 		super(service, activatedRoute, router)
@@ -51,11 +75,18 @@ export class TalentComponent extends AbstractComponent<Talent> {
 
 				this.listingImageFromURL = JSON.parse(JSON.stringify(talent.listingImage));
 				this.profileImageFromURL = JSON.parse(JSON.stringify(talent.profileImage));
-			})
+			});
 			this.mediaService.getMediaByTalent(this.editModeId).subscribe((medias: Array<Media>) => {
 				this.medias = medias;
 				this.originalMedias = JSON.parse(JSON.stringify(medias));
 			});
+		}
+	}
+
+	public onCropperReady(dimension: Dimensions) {
+		if (this.editModeId !== null) {
+			this.listingCropperConfig = JSON.parse(JSON.stringify(this.item.listingCropperConfig));
+			this.profileCropperConfig = JSON.parse(JSON.stringify(this.item.profileCropperConfig));
 		}
 	}
 
@@ -72,15 +103,13 @@ export class TalentComponent extends AbstractComponent<Talent> {
 	}
 
 	public onListingCropped(event) {
-		if (this.startCroppingListingImage > 0) {
-			this.listingCroppedImage = event.base64;
-		}	
+		this.listingCropperConfig = event.cropperPosition;
+		this.listingCroppedImage = event.base64;
 	}
 
 	public onProfileCropped(event) {
-		if (this.startCroppingProfileImage > 0) {
-			this.profileCroppedImage = event.base64;
-		}
+		this.profileCropperConfig = event.cropperPosition;
+		this.profileCroppedImage = event.base64;
 	}
 
 	private getImageFile(image, name) {
@@ -95,6 +124,8 @@ export class TalentComponent extends AbstractComponent<Talent> {
 	}
 
 	public save() {
+		this.listingCropper.crop();
+		this.profileCropper.crop();
 		const profilePromise = this.getImageFile(this.profileCroppedImage, 'profileCropped.jpg');
 		const listingPromise = this.getImageFile(this.listingCroppedImage, 'listingCropped.jpg');
 
@@ -119,6 +150,9 @@ export class TalentComponent extends AbstractComponent<Talent> {
 				key: 'listingCroppedImage'
 			};
 
+			this.item.listingCropperConfig = this.listingCropperConfig;
+			this.item.profileCropperConfig = this.profileCropperConfig;
+			
 			this.service.createForm(this.item, [profile, profileCropped, listing, listingCropped]).subscribe((data) => {
 				console.log(data);
 			});
@@ -134,14 +168,6 @@ export class TalentComponent extends AbstractComponent<Talent> {
 			}
 		}
 		return mediasToUpdate;
-	}
-
-	public onListingCropperChange() {
-		this.startCroppingListingImage++;
-	}
-
-	public onProfileCropperChange() {
-		this.startCroppingProfileImage++;
 	}
 
 	private updateOnlyDetailsAndMedia() {
@@ -185,13 +211,22 @@ export class TalentComponent extends AbstractComponent<Talent> {
 	}
 
 	public async update() {
+		this.listingCropper.crop();
+		this.profileCropper.crop();
+		
 		let listingImages: Array<any> = new Array<any>();
 		let profileImages: Array<any> = new Array<any>();
 
-		if (!(this.startCroppingListingImage > 0) && !(this.startCroppingProfileImage > 0)) {
-			this.updateOnlyDetailsAndMedia();
+		const isListingCropped: boolean = JSON.stringify(this.listingCropperConfig) !== JSON.stringify(this.item.listingCropperConfig);
+		const isProfileCropped: boolean = JSON.stringify(this.profileCropperConfig) !== JSON.stringify(this.item.profileCropperConfig);
 
+		if (!isListingCropped && !isProfileCropped) {
+			console.log(this.listingCropperConfig);
+			console.log(this.item.listingCropperConfig);
+			this.updateOnlyDetailsAndMedia();
 		} else {
+			this.item.listingCropperConfig = this.listingCropperConfig;
+			this.item.profileCropperConfig = this.profileCropperConfig;
 
 			if (!this.listingURL) {
 				await this.takeImageAndCroppedImageFromPC(this.listingFile, this.listingCroppedImage, 'listing', listingImages);
@@ -202,7 +237,7 @@ export class TalentComponent extends AbstractComponent<Talent> {
 				}
 				listingImages.push(fileURL);
 
-				if (!(this.startCroppingListingImage > 0)) {
+				if (!isListingCropped) {
 					const croppedURL = {
 						file: this.listingCroppedImage,
 						key: 'listingCroppedURL'
@@ -212,7 +247,7 @@ export class TalentComponent extends AbstractComponent<Talent> {
 					await this.takeCroppedFromURL(this.listingCroppedImage, 'listing', listingImages);
 				}
 			}
-	
+
 			if (!this.profileURL) {
 				await this.takeImageAndCroppedImageFromPC(this.profileFile, this.profileCroppedImage, 'profile', profileImages);
 			} else {
@@ -222,7 +257,7 @@ export class TalentComponent extends AbstractComponent<Talent> {
 				}
 				profileImages.push(fileURL);
 				
-				if (!(this.startCroppingProfileImage > 0)) {
+				if (!isProfileCropped) {
 					const croppedURL = {
 						file: this.profileCroppedImage,
 						key: 'profileCroppedURL'
