@@ -22,6 +22,12 @@ export class TalentComponent extends AbstractComponent<Talent> {
 	private listingFile: File;
 	private profileFile: File;
 
+	private startCroppingListingImage: number = 0;
+	private startCroppingProfileImage: number = 0;
+	private listingURL: boolean = true;
+	private profileURL: boolean = true;
+
+
 	public listingImage: any = '';
 	public profileImage: any = '';
 	public listingCroppedImage: any = '';
@@ -30,9 +36,6 @@ export class TalentComponent extends AbstractComponent<Talent> {
 	public originalMedias: Array<Media> = new Array<Media>();
 
 	public Editor = ClassicEditor;
-
-	private listingURL: boolean = true;
-	private profileURL: boolean = true;
 
 	public listingImageFromURL: any = '';
 	public profileImageFromURL: any = '';
@@ -277,6 +280,4 @@ export class TalentComponent extends AbstractComponent<Talent> {
 	public togglePublished(media) {
 		media.published = !media.published;
 	}
-
-
 }

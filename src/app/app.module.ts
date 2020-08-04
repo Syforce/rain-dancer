@@ -45,6 +45,11 @@ import { ROUTES } from './app.router';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { QueueListComponent } from './queue/queue-list/queue-list.component';
 
+import { QuillModule } from 'ngx-quill'
+import { WorkDashboardComponent } from './work/work-dashboard.component';
+import { WorkListComponent } from './work/work-list/work-list.component';
+import { WorkService } from './work/work.service';
+
 @NgModule({
 	declarations: [
 		App,
@@ -69,7 +74,10 @@ import { QueueListComponent } from './queue/queue-list/queue-list.component';
 
 		TableComponent,
 		TableHeaderComponent,
-		TableFooterComponent
+		TableFooterComponent,
+
+		WorkDashboardComponent,
+		WorkListComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -79,7 +87,9 @@ import { QueueListComponent } from './queue/queue-list/queue-list.component';
 		FormsModule,
 		ImageCropperModule,
 		CKEditorModule,
-		Ng5SliderModule
+		Ng5SliderModule,
+		QuillModule,
+		QuillModule.forRoot(),
 	],
 	providers: [
 		HttpService,
@@ -88,6 +98,7 @@ import { QueueListComponent } from './queue/queue-list/queue-list.component';
 		VideoService,
 		MediaService,
 		QueueService,
+		WorkService,
 	],
 	bootstrap: [App]
 })
